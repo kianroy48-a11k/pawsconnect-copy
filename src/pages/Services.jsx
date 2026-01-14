@@ -25,6 +25,7 @@ export default function Services({ user }) {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('all');
+  const [userLocation, setUserLocation] = useState('');
   const [selectedService, setSelectedService] = useState(null);
   const [userRating, setUserRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
