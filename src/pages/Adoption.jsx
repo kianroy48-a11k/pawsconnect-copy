@@ -40,12 +40,39 @@ export default function Adoption({ user }) {
     loadUserLikes();
   }, [user?.email]);
 
+  const [petMap, setPetMap] = React.useState({});
+
+  React.useEffect(() => {
+    const loadPets = async () => {
+      if (!adoptionPosts.length) return;
+      const petIds = [...new Set(adoptionPosts.map(p => p.pet_id).filter(Boolean))];
+      if (petIds.length === 0) return;
+      try {
+        const petsData = await Promise.all(petIds.map(id => base44.entities.Pet.filter({ id })));
+        const map = {};
+        petsData.forEach((petArray) => {
+          if (petArray.length > 0) {
+            map[petArray[0].id] = petArray[0];
+          }
+        });
+        setPetMap(map);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    loadPets();
+  }, [adoptionPosts]);
+
   const filteredPosts = adoptionPosts.filter(p => {
     const matchesSearch = p.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.location?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesSpecies = speciesFilter === 'all' || p.pet_id; // Only filter by species if pet_id exists
-    return matchesSearch && (speciesFilter === 'all' || matchesSpecies);
-  }).filter(p => speciesFilter === 'all' || p.post_type === 'adoption');
+    
+    if (speciesFilter === 'all') return matchesSearch;
+    
+    const pet = p.pet_id ? petMap[p.pet_id] : null;
+    const matchesSpecies = pet?.species === speciesFilter;
+    return matchesSearch && matchesSpecies;
+  });
 
   return (
     <div className="max-w-[900px] min-h-screen">
