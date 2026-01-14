@@ -103,7 +103,7 @@ export default function CreatePost({ user }) {
           <Button
             onClick={handleSubmit}
             disabled={!content.trim() || isSubmitting}
-            className="rounded-full bg-orange-500 hover:bg-orange-600 px-6"
+            className="rounded-full bg-blue-500 hover:bg-blue-600 px-6"
           >
             {isSubmitting ? 'Posting...' : 'Post'}
           </Button>
@@ -122,7 +122,7 @@ export default function CreatePost({ user }) {
                 className={cn(
                   "p-3 rounded-xl border-2 text-left transition-all",
                   postType === type.value
-                    ? "border-orange-500 bg-orange-50"
+                    ? "border-blue-500 bg-blue-50"
                     : "border-gray-100 hover:border-gray-200"
                 )}
               >
@@ -173,10 +173,10 @@ export default function CreatePost({ user }) {
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-3 p-4 w-full rounded-xl border-2 border-dashed border-gray-200 hover:border-orange-300 hover:bg-orange-50/50 transition"
+            className="flex items-center gap-3 p-4 w-full rounded-xl border-2 border-dashed border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition"
           >
-            <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-              <Camera className="w-6 h-6 text-orange-500" />
+            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+              <Camera className="w-6 h-6 text-blue-500" />
             </div>
             <div className="text-left">
               <p className="font-medium text-gray-900">Add a photo</p>

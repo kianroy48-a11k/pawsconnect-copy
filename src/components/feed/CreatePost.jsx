@@ -126,7 +126,7 @@ Original post: "${content}"`,
         <div className="flex gap-3">
           <Avatar className="h-11 w-11 ring-2 ring-gray-100">
             <AvatarImage src={user?.avatar_url} />
-            <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 font-medium">
+            <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700 font-medium">
               {user?.full_name?.charAt(0)?.toUpperCase() || '?'}
             </AvatarFallback>
           </Avatar>
@@ -230,7 +230,7 @@ Original post: "${content}"`,
                     variant="ghost"
                     size="icon"
                     onClick={() => fileInputRef.current?.click()}
-                    className="text-orange-400 hover:bg-orange-50 rounded-full"
+                    className="text-blue-400 hover:bg-blue-50 rounded-full"
                     aria-label="Add image"
                   >
                     <Image className="w-5 h-5" />
@@ -263,7 +263,7 @@ Original post: "${content}"`,
             <Button
               onClick={handleSubmit}
               disabled={!content.trim() || isSubmitting}
-              className="rounded-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 px-5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="rounded-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 px-5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Posting...' : 'Post'}
             </Button>
