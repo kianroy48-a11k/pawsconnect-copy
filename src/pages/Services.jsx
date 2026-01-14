@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Search, MapPin, Star, Phone, Globe, Clock, Filter, X } from 'lucide-react';
+import { Search, MapPin, Star, Phone, Globe, Clock, Filter, X, Plus } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,9 +22,13 @@ const SERVICE_TYPES = [
 ];
 
 export default function Services({ user }) {
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('all');
   const [selectedService, setSelectedService] = useState(null);
+  const [userRating, setUserRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
 
   const { data: services = [], isLoading } = useQuery({
     queryKey: ['services', selectedType],
