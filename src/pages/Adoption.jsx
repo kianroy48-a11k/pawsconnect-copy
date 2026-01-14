@@ -207,6 +207,7 @@ export default function Adoption({ user }) {
               currentUserEmail={user?.email}
               userLikes={userLikes}
               onLikeUpdate={loadUserLikes}
+              onDelete={() => window.location.reload()}
             />
           ))
         )}
