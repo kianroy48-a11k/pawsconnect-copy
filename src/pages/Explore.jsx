@@ -97,8 +97,8 @@ export default function Explore({ user }) {
       {!searchQuery && !selectedTag && (
         <div className="p-4 border-b border-gray-100">
           <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="w-5 h-5 text-orange-500" />
-            <h2 className="font-semibold text-gray-900">Trending</h2>
+            <TrendingUp className="w-5 h-5 text-orange-400" />
+            <h2 className="font-semibold text-gray-800">Trending</h2>
           </div>
           <div className="flex flex-wrap gap-2">
             {TRENDING_TAGS.map((item) => (
