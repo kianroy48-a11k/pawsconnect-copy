@@ -52,11 +52,17 @@ export default function LostFound({ user }) {
   }, [user?.email]);
 
   const filterPosts = (posts) => {
-    if (!searchQuery) return posts;
-    return posts.filter(p =>
-      p.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.location?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    return posts.filter(p => {
+      const matchesSearch = !searchQuery || 
+        p.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.location?.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Filter by user's city if set
+      const matchesCity = !userCity || 
+        p.location?.toLowerCase().includes(userCity.toLowerCase());
+      
+      return matchesSearch && matchesCity;
+    });
   };
 
   const filteredLostPosts = filterPosts(lostPosts);
