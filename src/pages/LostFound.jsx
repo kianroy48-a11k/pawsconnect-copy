@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Search, MapPin, AlertTriangle, CheckCircle, Filter, PawPrint } from 'lucide-react';
+import { Search, MapPin, AlertTriangle, CheckCircle, AlertCircle, Bell } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -59,11 +59,11 @@ export default function LostFound({ user }) {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
-              <PawPrint className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center">
+              <AlertCircle className="w-5 h-5 text-red-400" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Lost & Found</h1>
+              <h1 className="text-xl font-bold text-gray-800">Lost & Found</h1>
               <p className="text-sm text-gray-500">Help reunite pets with their families</p>
             </div>
           </div>
