@@ -105,10 +105,12 @@ export default function Home({ user }) {
         </div>
       </div>
 
-      {/* Right Sidebar - Desktop Only */}
-      <div className="hidden lg:block w-[350px] p-4 space-y-4">
-        <TrendingWidget />
-        <SuggestedServices />
+      {/* Right Sidebar - Desktop Only - STICKY */}
+      <div className="hidden lg:block w-[350px]">
+        <div className="sticky top-0 p-4 space-y-4 max-h-screen overflow-y-auto">
+          <TrendingWidget />
+          <SuggestedServices />
+        </div>
       </div>
     </div>
   );

@@ -1,27 +1,27 @@
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Services from './pages/Services';
-import Challenges from './pages/Challenges';
 import Adoption from './pages/Adoption';
-import LostFound from './pages/LostFound';
-import Explore from './pages/Explore';
+import Challenges from './pages/Challenges';
 import CreatePost from './pages/CreatePost';
+import Explore from './pages/Explore';
+import Home from './pages/Home';
+import LostFound from './pages/LostFound';
 import Messages from './pages/Messages';
+import Profile from './pages/Profile';
 import Saved from './pages/Saved';
+import Services from './pages/Services';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Profile": Profile,
-    "Services": Services,
-    "Challenges": Challenges,
     "Adoption": Adoption,
-    "LostFound": LostFound,
-    "Explore": Explore,
+    "Challenges": Challenges,
     "CreatePost": CreatePost,
+    "Explore": Explore,
+    "Home": Home,
+    "LostFound": LostFound,
     "Messages": Messages,
+    "Profile": Profile,
     "Saved": Saved,
+    "Services": Services,
 }
 
 export const pagesConfig = {

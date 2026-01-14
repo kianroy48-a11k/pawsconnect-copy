@@ -12,6 +12,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+const SUGGESTED_PROMPTS = [
+  "How often should I feed my puppy?",
+  "Tips for training a new kitten",
+  "What vaccines does my pet need?"
+];
+
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -32,10 +38,10 @@ export default function AIChatbot() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSend = async (messageText) => {
+    const userMessage = messageText || input.trim();
+    if (!userMessage || isLoading) return;
 
-    const userMessage = input.trim();
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
@@ -69,6 +75,12 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
     }
   };
 
+  const handleSuggestedPrompt = (prompt) => {
+    handleSend(prompt);
+  };
+
+  const showSuggestions = messages.length === 1 && !isLoading;
+
   return (
     <TooltipProvider>
       <div className="fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6">
@@ -76,9 +88,9 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
         {isOpen && (
           <div className="absolute bottom-16 right-0 w-[340px] sm:w-[380px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-fade-in">
             {/* Header */}
-            <div className="bg-gradient-to-r from-orange-100 to-pink-100 px-4 py-3 flex items-center justify-between border-b border-gray-100">
+            <div className="bg-gradient-to-r from-blue-100 to-sky-100 px-4 py-3 flex items-center justify-between border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-300 to-pink-300 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-sky-400 flex items-center justify-center flex-shrink-0">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <div>
@@ -140,6 +152,23 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
                   </div>
                 </div>
               ))}
+              
+              {/* Suggested Prompts */}
+              {showSuggestions && (
+                <div className="space-y-2">
+                  <p className="text-xs text-gray-500 text-center">Try asking:</p>
+                  {SUGGESTED_PROMPTS.map((prompt, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSuggestedPrompt(prompt)}
+                      className="w-full text-left px-3 py-2 bg-white rounded-xl border border-gray-200 text-sm text-gray-700 hover:bg-blue-50 hover:border-blue-200 transition"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              )}
+              
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="chat-bubble-ai rounded-2xl px-4 py-3">
@@ -165,9 +194,9 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      onClick={handleSend}
+                      onClick={() => handleSend()}
                       disabled={!input.trim() || isLoading}
-                      className="rounded-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 h-9 w-9 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="rounded-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 h-9 w-9 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
                       aria-label="Send message"
                     >
                       <Send className="w-4 h-4 text-white" />
@@ -189,7 +218,7 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
                 "h-14 w-14 rounded-full shadow-lg transition-all",
                 isOpen 
                   ? "bg-gray-100 hover:bg-gray-200" 
-                  : "bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400"
+                  : "bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500"
               )}
               aria-label={isOpen ? "Close Pawly chat" : "Open Pawly chat"}
             >

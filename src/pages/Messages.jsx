@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Send, Search, MessageCircle, Loader2 } from 'lucide-react';
+import { ArrowLeft, Send, Search, MessageCircle, Loader2, LogIn } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -50,7 +50,7 @@ export default function Messages({ user }) {
   const { data: allUsers = [] } = useQuery({
     queryKey: ['all-users'],
     queryFn: () => base44.entities.User.list(),
-    enabled: showNewChat
+    enabled: showNewChat && !!user
   });
 
   useEffect(() => {
@@ -139,11 +139,45 @@ export default function Messages({ user }) {
      u.full_name?.toLowerCase().includes(newChatEmail.toLowerCase()))
   );
 
+  // Not signed in state
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-500">Please sign in to view messages</p>
-      </div>
+      <TooltipProvider>
+        <div className="max-w-[900px] border-r border-gray-100 min-h-screen flex">
+          {/* Conversations List - Empty State */}
+          <div className="w-full md:w-[320px] border-r border-gray-100 flex flex-col">
+            <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
+              <div className="px-4 py-4">
+                <h1 className="text-xl font-bold text-gray-900">Messages</h1>
+              </div>
+            </header>
+            
+            <div className="flex-1 flex items-center justify-center p-8">
+              <div className="text-center">
+                <MessageCircle className="w-16 h-16 mx-auto text-gray-200 mb-4" />
+                <p className="text-gray-500 font-medium mb-2">Sign in to view messages</p>
+                <p className="text-gray-400 text-sm mb-4">Connect with other pet lovers</p>
+                <Button 
+                  onClick={() => base44.auth.redirectToLogin()}
+                  className="bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 rounded-full"
+                >
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Sign In
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Chat View - Empty */}
+          <div className="hidden md:flex flex-1 items-center justify-center bg-gray-50/30">
+            <div className="text-center">
+              <MessageCircle className="w-16 h-16 mx-auto text-gray-200 mb-4" />
+              <p className="text-gray-500 font-medium">Select a conversation</p>
+              <p className="text-gray-400 text-sm mt-1">Sign in to start chatting</p>
+            </div>
+          </div>
+        </div>
+      </TooltipProvider>
     );
   }
 
@@ -191,7 +225,7 @@ export default function Messages({ user }) {
 
           {/* New Chat Input */}
           {showNewChat && (
-            <div className="p-4 border-b border-gray-100 bg-orange-50/50">
+            <div className="p-4 border-b border-gray-100 bg-blue-50/50">
               <p className="text-sm font-medium text-gray-700 mb-2">Start a new conversation</p>
               <Input
                 value={newChatEmail}
@@ -211,8 +245,8 @@ export default function Messages({ user }) {
                       }}
                       className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-white transition text-left"
                     >
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 text-xs">
+                      <Avatar className="h-8 w-8 flex-shrink-0 avatar-circle">
+                        <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700 text-xs">
                           {u.full_name?.charAt(0)?.toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -237,7 +271,7 @@ export default function Messages({ user }) {
                   size="sm" 
                   onClick={handleStartNewChat}
                   disabled={!newChatEmail.trim()}
-                  className="flex-1 bg-orange-400 hover:bg-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-blue-400 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Start Chat
                 </Button>
@@ -264,11 +298,11 @@ export default function Messages({ user }) {
                   onClick={() => setSelectedConversation(convo)}
                   className={cn(
                     "w-full flex items-center gap-3 p-4 hover:bg-gray-50 transition border-b border-gray-50",
-                    selectedConversation?.id === convo.id && "bg-orange-50/50"
+                    selectedConversation?.id === convo.id && "bg-blue-50/50"
                   )}
                 >
-                  <Avatar className="h-12 w-12">
-                    <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700">
+                  <Avatar className="h-12 w-12 flex-shrink-0 avatar-circle">
+                    <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700">
                       {getOtherParticipant(convo).charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
@@ -314,8 +348,8 @@ export default function Messages({ user }) {
                   </TooltipTrigger>
                   <TooltipContent>Back</TooltipContent>
                 </Tooltip>
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700">
+                <Avatar className="h-10 w-10 flex-shrink-0 avatar-circle">
+                  <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700">
                     {getOtherParticipant(selectedConversation).charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -349,7 +383,7 @@ export default function Messages({ user }) {
                         className={cn(
                           "max-w-[75%] rounded-2xl px-4 py-2.5",
                           msg.sender_email === user.email
-                            ? "bg-gradient-to-r from-orange-200 to-pink-200 text-gray-800"
+                            ? "bg-gradient-to-r from-blue-200 to-sky-200 text-gray-800"
                             : "bg-white border border-gray-100 text-gray-800"
                         )}
                       >
@@ -381,7 +415,7 @@ export default function Messages({ user }) {
                       <Button
                         onClick={handleSendMessage}
                         disabled={!newMessage.trim() || isSending}
-                        className="rounded-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 h-10 w-10 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="rounded-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 h-10 w-10 p-0 disabled:opacity-50 disabled:cursor-not-allowed"
                         aria-label="Send message"
                       >
                         {isSending ? (
