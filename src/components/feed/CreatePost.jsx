@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Image, MapPin, X, AlertTriangle, Sparkles } from 'lucide-react';
+import { Image, MapPin, X, AlertTriangle, Sparkles, Loader2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,12 +9,19 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { base44 } from '@/api/base44Client';
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const POST_TYPES = [
   { value: 'general', label: 'General Post', icon: '📝' },
+  { value: 'question', label: 'Ask a Question', icon: '❓' },
   { value: 'adoption', label: 'Pet for Adoption', icon: '🏠' },
-  { value: 'lost', label: 'Lost Pet', icon: '🔍' },
-  { value: 'found', label: 'Found Pet', icon: '✨' },
+  { value: 'lost', label: 'Lost Pet', icon: '🚨' },
+  { value: 'found', label: 'Found Pet', icon: '🔔' },
   { value: 'challenge', label: 'Challenge Entry', icon: '🏆' },
   { value: 'service_review', label: 'Service Review', icon: '⭐' }
 ];
@@ -29,6 +36,7 @@ export default function CreatePost({ user, onPostCreated }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isEnhancing, setIsEnhancing] = useState(false);
   const fileInputRef = useRef(null);
 
   const showLocationField = ['lost', 'found', 'adoption'].includes(postType);
@@ -49,6 +57,24 @@ export default function CreatePost({ user, onPostCreated }) {
     setImageFile(null);
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleEnhanceWithAI = async () => {
+    if (!content.trim() || isEnhancing) return;
+    
+    setIsEnhancing(true);
+    try {
+      const response = await base44.integrations.Core.InvokeLLM({
+        prompt: `You are a social media expert for a pet community app. Improve the following post to make it more engaging, friendly, and appealing while keeping the same meaning and intent. Add relevant emojis and make it warm and community-friendly. Keep it concise (under 280 characters if possible). Only return the improved text, nothing else.
+
+Original post: "${content}"`,
+      });
+      setContent(response);
+    } catch (error) {
+      console.error('Failed to enhance:', error);
+    } finally {
+      setIsEnhancing(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -95,14 +121,15 @@ export default function CreatePost({ user, onPostCreated }) {
   };
 
   return (
-    <div className="bg-white border-b border-gray-100 px-4 py-4">
-      <div className="flex gap-3">
-        <Avatar className="h-11 w-11 ring-2 ring-gray-100">
-          <AvatarImage src={user?.avatar_url} />
-          <AvatarFallback className="bg-gradient-to-br from-orange-400 to-pink-500 text-white font-medium">
-            {user?.full_name?.charAt(0)?.toUpperCase() || '?'}
-          </AvatarFallback>
-        </Avatar>
+    <TooltipProvider>
+      <div className="bg-white border-b border-gray-100 px-4 py-4">
+        <div className="flex gap-3">
+          <Avatar className="h-11 w-11 ring-2 ring-gray-100">
+            <AvatarImage src={user?.avatar_url} />
+            <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 font-medium">
+              {user?.full_name?.charAt(0)?.toUpperCase() || '?'}
+            </AvatarFallback>
+          </Avatar>
         
         <div className="flex-1">
           <Textarea
@@ -194,36 +221,55 @@ export default function CreatePost({ user, onPostCreated }) {
                 accept="image/*"
                 onChange={handleImageSelect}
                 className="hidden"
+                aria-label="Upload image"
               />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => fileInputRef.current?.click()}
-                className="text-orange-500 hover:bg-orange-50 rounded-full"
-              >
-                <Image className="w-5 h-5" />
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="text-orange-500 hover:bg-orange-50 rounded-full"
-              >
-                <Sparkles className="w-5 h-5" />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="text-orange-400 hover:bg-orange-50 rounded-full"
+                    aria-label="Add image"
+                  >
+                    <Image className="w-5 h-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Add image</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleEnhanceWithAI}
+                    disabled={!content.trim() || isEnhancing}
+                    className="text-purple-400 hover:bg-purple-50 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Enhance with AI"
+                  >
+                    {isEnhancing ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <Sparkles className="w-5 h-5" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Enhance with AI</TooltipContent>
+              </Tooltip>
             </div>
             
             <Button
               onClick={handleSubmit}
               disabled={!content.trim() || isSubmitting}
-              className="rounded-full bg-orange-500 hover:bg-orange-600 px-5"
+              className="rounded-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 px-5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Posting...' : 'Post'}
             </Button>
           </div>
         </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
