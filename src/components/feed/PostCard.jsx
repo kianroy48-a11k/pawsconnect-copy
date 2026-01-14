@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Share2, MapPin, AlertTriangle, Bookmark } from 'lucide-react';
+import { Heart, MessageCircle, Share2, MapPin, AlertTriangle, Bookmark, MoreHorizontal, Trash2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,22 @@ import { cn } from "@/lib/utils";
 import { base44 } from '@/api/base44Client';
 import moment from 'moment';
 import CommentSection from './CommentSection';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const POST_TYPE_CONFIG = {
   general: { label: null, color: null },
@@ -17,14 +33,30 @@ const POST_TYPE_CONFIG = {
   service_review: { label: 'Review', color: 'bg-amber-100 text-amber-700 border-amber-200' }
 };
 
-export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLikes = [] }) {
+export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLikes = [], onDelete }) {
   const [showComments, setShowComments] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [localLikesCount, setLocalLikesCount] = useState(post.likes_count || 0);
   const [localCommentsCount, setLocalCommentsCount] = useState(post.comments_count || 0);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   
   const isLiked = userLikes.includes(post.id);
+  const isOwnPost = post.created_by === currentUserEmail;
   const typeConfig = POST_TYPE_CONFIG[post.post_type] || POST_TYPE_CONFIG.general;
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await base44.entities.Post.delete(post.id);
+      onDelete?.();
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+    } finally {
+      setIsDeleting(false);
+      setShowDeleteDialog(false);
+    }
+  };
 
   const handleLike = async () => {
     if (!currentUserEmail || isLiking) return;
@@ -78,15 +110,36 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
           </Avatar>
           
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-semibold text-gray-900 text-[15px]">{post.author_name}</span>
-              <span className="text-gray-400 text-sm">·</span>
-              <span className="text-gray-500 text-sm">{moment(post.created_date).fromNow()}</span>
-              {typeConfig.label && (
-                <Badge variant="outline" className={cn("text-xs font-medium", typeConfig.color)}>
-                  {post.is_urgent && <AlertTriangle className="w-3 h-3 mr-1" />}
-                  {typeConfig.label}
-                </Badge>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-semibold text-gray-900 text-[15px]">{post.author_name}</span>
+                <span className="text-gray-400 text-sm">·</span>
+                <span className="text-gray-500 text-sm">{moment(post.created_date).fromNow()}</span>
+                {typeConfig.label && (
+                  <Badge variant="outline" className={cn("text-xs font-medium", typeConfig.color)}>
+                    {post.is_urgent && <AlertTriangle className="w-3 h-3 mr-1" />}
+                    {typeConfig.label}
+                  </Badge>
+                )}
+              </div>
+              
+              {isOwnPost && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem 
+                      onClick={() => setShowDeleteDialog(true)}
+                      className="text-red-600 focus:text-red-600"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Delete Post
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               )}
             </div>
             
@@ -191,6 +244,28 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
           />
         )}
       </div>
+      
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Post</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this post? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </article>
   );
 }
