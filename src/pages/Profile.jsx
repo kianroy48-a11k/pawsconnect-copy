@@ -27,9 +27,20 @@ const SPECIES_OPTIONS = [
 export default function Profile({ user }) {
   const queryClient = useQueryClient();
   const [showAddPet, setShowAddPet] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(false);
   const [newPet, setNewPet] = useState({ name: '', species: 'dog', breed: '', bio: '' });
+  const [profileData, setProfileData] = useState({ bio: '', location: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userLikes, setUserLikes] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      setProfileData({
+        bio: user.bio || '',
+        location: user.location || ''
+      });
+    }
+  }, [user]);
 
   // Fetch user's pets
   const { data: pets = [], isLoading: loadingPets } = useQuery({
@@ -80,6 +91,19 @@ export default function Profile({ user }) {
     }
   };
 
+  const handleUpdateProfile = async () => {
+    setIsSubmitting(true);
+    try {
+      await base44.auth.updateMe(profileData);
+      setShowEditProfile(false);
+      window.location.reload();
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -120,16 +144,58 @@ export default function Profile({ user }) {
             <h2 className="text-xl font-bold text-gray-900">{user.full_name}</h2>
             <p className="text-gray-500">{user.email}</p>
           </div>
-          <Button variant="outline" className="rounded-full">
-            Edit Profile
-          </Button>
+          <Dialog open={showEditProfile} onOpenChange={setShowEditProfile}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="rounded-full">
+                Edit Profile
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <div>
+                  <Label>Bio</Label>
+                  <Textarea
+                    value={profileData.bio}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
+                    placeholder="Tell us about yourself..."
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label>Location</Label>
+                  <Input
+                    value={profileData.location}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, location: e.target.value }))}
+                    placeholder="Where are you from?"
+                    className="mt-1"
+                  />
+                </div>
+                <Button 
+                  onClick={handleUpdateProfile} 
+                  disabled={isSubmitting}
+                  className="w-full bg-orange-500 hover:bg-orange-600"
+                >
+                  {isSubmitting ? 'Saving...' : 'Save Changes'}
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
         
         {user.bio && (
           <p className="mt-3 text-gray-700">{user.bio}</p>
         )}
         
-        <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
+        <div className="flex items-center gap-4 mt-3 text-sm text-gray-500 flex-wrap">
+          {user.location && (
+            <span className="flex items-center gap-1">
+              <MapPin className="w-4 h-4" />
+              {user.location}
+            </span>
+          )}
           <span className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             Joined {moment(user.created_date).format('MMMM YYYY')}
