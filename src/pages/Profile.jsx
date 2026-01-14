@@ -248,6 +248,7 @@ export default function Profile({ user }) {
                 currentUserEmail={user.email}
                 userLikes={userLikes}
                 onLikeUpdate={loadUserLikes}
+                onDelete={() => queryClient.invalidateQueries({ queryKey: ['user-posts'] })}
               />
             ))
           )}
