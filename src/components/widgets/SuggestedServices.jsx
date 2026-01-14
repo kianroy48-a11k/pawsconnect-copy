@@ -32,10 +32,10 @@ export default function SuggestedServices() {
   };
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-4">
+    <div className="bg-pink-50/50 rounded-2xl p-4">
       <div className="flex items-center gap-2 mb-4">
-        <MapPin className="w-5 h-5 text-orange-500" />
-        <h3 className="font-semibold text-gray-900">Nearby Services</h3>
+        <MapPin className="w-5 h-5 text-pink-400" />
+        <h3 className="font-semibold text-gray-800">Nearby Services</h3>
       </div>
       
       <div className="space-y-3">
@@ -71,7 +71,7 @@ export default function SuggestedServices() {
       
       <Link 
         to={createPageUrl('Services')}
-        className="flex items-center justify-center gap-1 mt-4 text-sm text-orange-500 hover:text-orange-600 transition"
+        className="flex items-center justify-center gap-1 mt-4 text-sm text-pink-400 hover:text-pink-500 transition"
       >
         <span>Find services</span>
         <ChevronRight className="w-4 h-4" />
