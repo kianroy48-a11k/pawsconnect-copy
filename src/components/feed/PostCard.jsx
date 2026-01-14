@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Heart, MessageCircle, Share2, MapPin, AlertTriangle, Bookmark, MoreHorizontal, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Heart, MessageCircle, Share2, MapPin, AlertTriangle, Bookmark, MoreHorizontal, Trash2, BookmarkCheck } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,14 +23,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const POST_TYPE_CONFIG = {
   general: { label: null, color: null },
-  adoption: { label: 'Adoption', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-  lost: { label: 'Lost Pet', color: 'bg-red-100 text-red-700 border-red-200' },
-  found: { label: 'Found Pet', color: 'bg-blue-100 text-blue-700 border-blue-200' },
-  challenge: { label: 'Challenge', color: 'bg-purple-100 text-purple-700 border-purple-200' },
-  service_review: { label: 'Review', color: 'bg-amber-100 text-amber-700 border-amber-200' }
+  question: { label: 'Question', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' },
+  adoption: { label: 'Adoption', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
+  lost: { label: 'Lost Pet', color: 'bg-red-50 text-red-600 border-red-100' },
+  found: { label: 'Found Pet', color: 'bg-sky-50 text-sky-600 border-sky-100' },
+  challenge: { label: 'Challenge', color: 'bg-purple-50 text-purple-600 border-purple-100' },
+  service_review: { label: 'Review', color: 'bg-amber-50 text-amber-600 border-amber-100' }
 };
 
 export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLikes = [], onDelete }) {
@@ -40,10 +47,57 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
   const [localCommentsCount, setLocalCommentsCount] = useState(post.comments_count || 0);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   
   const isLiked = userLikes.includes(post.id);
   const isOwnPost = post.created_by === currentUserEmail;
   const typeConfig = POST_TYPE_CONFIG[post.post_type] || POST_TYPE_CONFIG.general;
+
+  // Check if post is saved
+  useEffect(() => {
+    const checkSaved = async () => {
+      if (!currentUserEmail) return;
+      try {
+        const saved = await base44.entities.SavedPost.filter({ 
+          post_id: post.id, 
+          user_email: currentUserEmail 
+        });
+        setIsSaved(saved.length > 0);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    checkSaved();
+  }, [post.id, currentUserEmail]);
+
+  const handleSave = async () => {
+    if (!currentUserEmail || isSaving) return;
+    setIsSaving(true);
+    
+    try {
+      if (isSaved) {
+        const saved = await base44.entities.SavedPost.filter({ 
+          post_id: post.id, 
+          user_email: currentUserEmail 
+        });
+        if (saved.length > 0) {
+          await base44.entities.SavedPost.delete(saved[0].id);
+        }
+        setIsSaved(false);
+      } else {
+        await base44.entities.SavedPost.create({ 
+          post_id: post.id, 
+          user_email: currentUserEmail 
+        });
+        setIsSaved(true);
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -98,16 +152,17 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
   };
 
   return (
-    <article className="bg-white border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
-      <div className="px-4 py-4">
-        {/* Header */}
-        <div className="flex items-start gap-3">
-          <Avatar className="h-11 w-11 ring-2 ring-gray-100">
-            <AvatarImage src={post.author_avatar} alt={post.author_name} />
-            <AvatarFallback className="bg-gradient-to-br from-orange-400 to-pink-500 text-white font-medium">
-              {post.author_name?.charAt(0)?.toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+    <TooltipProvider>
+      <article className="bg-white border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+        <div className="px-4 py-4">
+          {/* Header */}
+          <div className="flex items-start gap-3">
+            <Avatar className="h-11 w-11 ring-2 ring-gray-100">
+              <AvatarImage src={post.author_avatar} alt={post.author_name} />
+              <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 font-medium">
+                {post.author_name?.charAt(0)?.toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
           
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between">
@@ -124,22 +179,22 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
               </div>
               
               {isOwnPost && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600">
-                      <MoreHorizontal className="w-4 h-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem 
-                      onClick={() => setShowDeleteDialog(true)}
-                      className="text-red-600 focus:text-red-600"
-                    >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Delete Post
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600" aria-label="More options">
+                    <MoreHorizontal className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem 
+                    onClick={() => setShowDeleteDialog(true)}
+                    className="text-red-600 focus:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Delete Post
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               )}
             </div>
             
@@ -189,51 +244,86 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             
             {/* Actions */}
             <div className="flex items-center justify-between mt-3 pt-2 -ml-2">
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setShowComments(!showComments)}
-                className="text-gray-500 hover:text-orange-500 hover:bg-orange-50 rounded-full px-3 gap-2"
-              >
-                <MessageCircle className="w-[18px] h-[18px]" />
-                <span className="text-sm">{localCommentsCount}</span>
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={handleLike}
-                disabled={isLiking || !currentUserEmail}
-                className={cn(
-                  "rounded-full px-3 gap-2",
-                  isLiked 
-                    ? "text-red-500 hover:text-red-600 hover:bg-red-50" 
-                    : "text-gray-500 hover:text-red-500 hover:bg-red-50"
-                )}
-              >
-                <Heart className={cn("w-[18px] h-[18px]", isLiked && "fill-current")} />
-                <span className="text-sm">{localLikesCount}</span>
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={handleShare}
-                className="text-gray-500 hover:text-blue-500 hover:bg-blue-50 rounded-full px-3"
-              >
-                <Share2 className="w-[18px] h-[18px]" />
-              </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="sm"
-                className="text-gray-500 hover:text-orange-500 hover:bg-orange-50 rounded-full px-3"
-              >
-                <Bookmark className="w-[18px] h-[18px]" />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowComments(!showComments)}
+                    className="text-gray-500 hover:text-orange-400 hover:bg-orange-50 rounded-full px-3 gap-2"
+                    aria-label="Comments"
+                  >
+                    <MessageCircle className="w-[18px] h-[18px]" />
+                    <span className="text-sm">{localCommentsCount}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Comments</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={handleLike}
+                    disabled={isLiking || !currentUserEmail}
+                    className={cn(
+                      "rounded-full px-3 gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
+                      isLiked 
+                        ? "text-red-400 hover:text-red-500 hover:bg-red-50" 
+                        : "text-gray-500 hover:text-red-400 hover:bg-red-50"
+                    )}
+                    aria-label={isLiked ? "Unlike" : "Like"}
+                  >
+                    <Heart className={cn("w-[18px] h-[18px]", isLiked && "fill-current")} />
+                    <span className="text-sm">{localLikesCount}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{isLiked ? "Unlike" : "Like"}</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={handleShare}
+                    className="text-gray-500 hover:text-sky-400 hover:bg-sky-50 rounded-full px-3"
+                    aria-label="Share"
+                  >
+                    <Share2 className="w-[18px] h-[18px]" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Share</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={handleSave}
+                    disabled={isSaving || !currentUserEmail}
+                    className={cn(
+                      "rounded-full px-3 disabled:opacity-50 disabled:cursor-not-allowed",
+                      isSaved 
+                        ? "text-orange-400 hover:text-orange-500 hover:bg-orange-50" 
+                        : "text-gray-500 hover:text-orange-400 hover:bg-orange-50"
+                    )}
+                    aria-label={isSaved ? "Unsave" : "Save"}
+                  >
+                    {isSaved ? (
+                      <BookmarkCheck className="w-[18px] h-[18px] fill-current" />
+                    ) : (
+                      <Bookmark className="w-[18px] h-[18px]" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{isSaved ? "Unsave" : "Save"}</TooltipContent>
+              </Tooltip>
             </div>
-          </div>
-        </div>
+            </div>
+            </div>
         
         {/* Comments Section */}
         {showComments && (
@@ -267,5 +357,6 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
         </AlertDialogContent>
       </AlertDialog>
     </article>
+    </TooltipProvider>
   );
 }
