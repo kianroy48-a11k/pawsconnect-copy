@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/components/navigation/Sidebar';
 import MobileNav from '@/components/navigation/MobileNav';
+import AIChatbot from '@/components/common/AIChatbot';
 import { base44 } from '@/api/base44Client';
 
 export default function Layout({ children, currentPageName }) {
@@ -110,6 +111,9 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Mobile Navigation */}
       <MobileNav currentPage={currentPageName} />
+
+      {/* AI Chatbot */}
+      <AIChatbot />
     </div>
   );
-}
+  }

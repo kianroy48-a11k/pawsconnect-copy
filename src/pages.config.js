@@ -7,6 +7,7 @@ import LostFound from './pages/LostFound';
 import Explore from './pages/Explore';
 import CreatePost from './pages/CreatePost';
 import Messages from './pages/Messages';
+import Saved from './pages/Saved';
 import __Layout from './Layout.jsx';
 
 
@@ -20,6 +21,7 @@ export const PAGES = {
     "Explore": Explore,
     "CreatePost": CreatePost,
     "Messages": Messages,
+    "Saved": Saved,
 }
 
 export const pagesConfig = {
