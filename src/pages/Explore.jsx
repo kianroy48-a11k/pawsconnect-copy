@@ -133,6 +133,7 @@ export default function Explore({ user }) {
               currentUserEmail={user?.email}
               userLikes={userLikes}
               onLikeUpdate={loadUserLikes}
+              onDelete={() => window.location.reload()}
             />
           ))
         )}
