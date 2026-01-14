@@ -140,7 +140,10 @@ export default function Challenges({ user }) {
                 #{selectedChallenge.hashtag}
               </Badge>
               <h2 className="text-2xl font-bold mb-2">{selectedChallenge.title}</h2>
-              <p className="text-gray-700">{selectedChallenge.description}</p>
+              <p className="text-gray-700 mb-4">{selectedChallenge.description}</p>
+              <div className="bg-white/30 backdrop-blur-sm rounded-lg p-3 mb-4 text-sm text-gray-800">
+                <strong>How to participate:</strong> Create a post and include the hashtag <span className="font-semibold text-orange-700">#{selectedChallenge.hashtag}</span> in your post to join the challenge!
+              </div>
               <div className="flex items-center gap-4 mt-4 text-gray-600 text-sm">
                 <span className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
