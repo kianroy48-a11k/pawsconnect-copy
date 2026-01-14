@@ -65,7 +65,7 @@ export default function Sidebar({ currentPage, user }) {
           {NAV_ITEMS.map((item) => {
             const isActive = currentPage === item.page;
             const Icon = item.icon;
-            
+
             return (
               <Tooltip key={item.page}>
                 <TooltipTrigger asChild>
@@ -92,6 +92,28 @@ export default function Sidebar({ currentPage, user }) {
               </Tooltip>
             );
           })}
+
+          {/* Report Lost Pet - Sub-item under Lost & Found */}
+          <div className="pl-4">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to={createPageUrl('CreatePost')}
+                  className={cn(
+                    "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all duration-200 text-xs",
+                    currentPage === 'CreatePost' 
+                      ? "bg-red-50 text-red-500" 
+                      : "text-gray-500 hover:bg-gray-50"
+                  )}
+                  aria-label="Report your lost pet"
+                >
+                  <PenSquare className="w-5 h-5" />
+                  <span className="hidden xl:block">Report Lost Pet</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right" className="xl:hidden">Report lost pet</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
 
         {/* User Section at Bottom */}
