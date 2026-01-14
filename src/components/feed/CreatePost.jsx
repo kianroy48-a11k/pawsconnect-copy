@@ -270,6 +270,7 @@ Original post: "${content}"`,
           </div>
         </div>
       </div>
+    </div>
     </TooltipProvider>
   );
 }
