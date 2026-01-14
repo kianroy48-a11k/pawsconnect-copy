@@ -40,10 +40,12 @@ export default function Adoption({ user }) {
     loadUserLikes();
   }, [user?.email]);
 
-  const filteredPosts = adoptionPosts.filter(p =>
-    p.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.location?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredPosts = adoptionPosts.filter(p => {
+    const matchesSearch = p.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.location?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSpecies = speciesFilter === 'all' || p.pet_id; // Only filter by species if pet_id exists
+    return matchesSearch && (speciesFilter === 'all' || matchesSpecies);
+  }).filter(p => speciesFilter === 'all' || p.post_type === 'adoption');
 
   return (
     <div className="max-w-[900px] min-h-screen">
