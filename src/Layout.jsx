@@ -48,19 +48,49 @@ export default function Layout({ children, currentPageName }) {
   // Redirect to login if not authenticated
   if (!user && !isPublicPage) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-pink-50 flex items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center mx-auto mb-6">
-            <span className="text-3xl">🐾</span>
+          {/* Logo Animation */}
+          <div className="relative mb-8">
+            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center mx-auto shadow-xl shadow-orange-200">
+              <span className="text-4xl">🐾</span>
+            </div>
+            <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
+              <span className="text-xs">✓</span>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Pawbook</h1>
-          <p className="text-gray-500 mb-6">The social network for pet lovers. Connect, share, and discover.</p>
+          
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">Welcome to Pawbook</h1>
+          <p className="text-gray-500 mb-8 text-lg leading-relaxed">
+            The social network for pet lovers. Connect with fellow pet parents, share adorable moments, and discover local services.
+          </p>
+          
+          {/* Features */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="text-center">
+              <span className="text-2xl mb-1 block">🏠</span>
+              <span className="text-xs text-gray-500">Adoption</span>
+            </div>
+            <div className="text-center">
+              <span className="text-2xl mb-1 block">🏥</span>
+              <span className="text-xs text-gray-500">Find Vets</span>
+            </div>
+            <div className="text-center">
+              <span className="text-2xl mb-1 block">🏆</span>
+              <span className="text-xs text-gray-500">Challenges</span>
+            </div>
+          </div>
+          
           <button
             onClick={() => base44.auth.redirectToLogin()}
-            className="w-full py-3 px-6 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-xl font-medium hover:opacity-90 transition"
+            className="w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-2xl font-semibold hover:opacity-90 transition-all hover:shadow-lg hover:shadow-orange-200 text-lg"
           >
-            Sign in to continue
+            Get Started
           </button>
+          
+          <p className="text-xs text-gray-400 mt-4">
+            Sign in with your Google account to continue
+          </p>
         </div>
       </div>
     );
