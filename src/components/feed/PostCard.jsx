@@ -121,18 +121,19 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
         const likes = await base44.entities.Like.filter({ post_id: post.id, user_email: currentUserEmail });
         if (likes.length > 0) {
           await base44.entities.Like.delete(likes[0].id);
-          setLocalLikesCount(prev => Math.max(0, prev - 1));
-          await base44.entities.Post.update(post.id, { likes_count: Math.max(0, localLikesCount - 1) });
+          const newCount = Math.max(0, localLikesCount - 1);
+          setLocalLikesCount(newCount);
+          await base44.entities.Post.update(post.id, { likes_count: newCount });
         }
       } else {
         await base44.entities.Like.create({ post_id: post.id, user_email: currentUserEmail });
-        setLocalLikesCount(prev => prev + 1);
-        await base44.entities.Post.update(post.id, { likes_count: localLikesCount + 1 });
+        const newCount = localLikesCount + 1;
+        setLocalLikesCount(newCount);
+        await base44.entities.Post.update(post.id, { likes_count: newCount });
       }
       onLikeUpdate?.();
     } catch (error) {
       console.error('Like error:', error);
-    } finally {
       setIsLiking(false);
     }
   };
