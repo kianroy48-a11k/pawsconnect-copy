@@ -83,8 +83,8 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
         });
         if (saved.length > 0) {
           await base44.entities.SavedPost.delete(saved[0].id);
+          setIsSaved(false);
         }
-        setIsSaved(false);
       } else {
         await base44.entities.SavedPost.create({ 
           post_id: post.id, 
@@ -94,7 +94,6 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
       }
     } catch (error) {
       console.error('Save error:', error);
-    } finally {
       setIsSaving(false);
     }
   };
