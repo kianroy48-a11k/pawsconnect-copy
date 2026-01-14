@@ -13,6 +13,17 @@ export default function LostFound({ user }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('lost');
   const [userLikes, setUserLikes] = useState([]);
+  const [userCity, setUserCity] = useState('');
+
+  useEffect(() => {
+    // Try to get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(() => {
+        // In a real app, you'd reverse-geocode to get city
+        // For now, we'll let user set it manually
+      });
+    }
+  }, []);
 
   // Fetch lost posts
   const { data: lostPosts = [], isLoading: loadingLost } = useQuery({
