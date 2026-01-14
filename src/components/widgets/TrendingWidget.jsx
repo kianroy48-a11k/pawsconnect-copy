@@ -1,0 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Flame, ChevronRight } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
+
+export default function TrendingWidget() {
+  const [challenges, setChallenges] = useState([]);
+
+  useEffect(() => {
+    loadChallenges();
+  }, []);
+
+  const loadChallenges = async () => {
+    try {
+      const data = await base44.entities.Challenge.filter({ is_active: true }, '-participants_count', 5);
+      setChallenges(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return (
+    <div className="bg-gray-50 rounded-2xl p-4">
+      <div className="flex items-center gap-2 mb-4">
+        <Flame className="w-5 h-5 text-orange-500" />
+        <h3 className="font-semibold text-gray-900">Trending Challenges</h3>
+      </div>
+      
+      <div className="space-y-3">
+        {challenges.length === 0 ? (
+          <p className="text-sm text-gray-500 text-center py-4">No active challenges</p>
+        ) : (
+          challenges.map((challenge) => (
+            <Link
+              key={challenge.id}
+              to={createPageUrl(`Challenges?id=${challenge.id}`)}
+              className="block p-3 bg-white rounded-xl hover:shadow-sm transition"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium text-sm text-gray-900">{challenge.title}</p>
+                  <p className="text-xs text-orange-500 mt-0.5">#{challenge.hashtag}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-gray-500">{challenge.participants_count || 0} entries</p>
+                </div>
+              </div>
+            </Link>
+          ))
+        )}
+      </div>
+      
+      <Link 
+        to={createPageUrl('Challenges')}
+        className="flex items-center justify-center gap-1 mt-4 text-sm text-orange-500 hover:text-orange-600 transition"
+      >
+        <span>View all challenges</span>
+        <ChevronRight className="w-4 h-4" />
+      </Link>
+    </div>
+  );
+}
