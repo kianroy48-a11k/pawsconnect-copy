@@ -123,9 +123,19 @@ export default function Profile({ user }) {
   };
 
   if (!user) {
+    const handleSignIn = async () => {
+      await base44.auth.redirectToLogin(createPageUrl('Profile'));
+    };
+
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen flex-col gap-4">
         <p className="text-gray-500">Please sign in to view your profile</p>
+        <Button 
+          onClick={handleSignIn}
+          className="bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 rounded-full"
+        >
+          Sign In
+        </Button>
       </div>
     );
   }
