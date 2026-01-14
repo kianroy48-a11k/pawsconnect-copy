@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 24.6 95% 53.1%;
+    --primary: 24 95% 65%;
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -19,11 +19,19 @@
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 24.6 95% 53.1%;
+    --ring: 24 95% 65%;
     --radius: 0.75rem;
+    
+    /* Soft Pastel Theme */
+    --pastel-peach: 24 100% 94%;
+    --pastel-pink: 340 100% 95%;
+    --pastel-lavender: 270 100% 95%;
+    --pastel-mint: 150 100% 94%;
+    --pastel-sky: 200 100% 94%;
+    --pastel-cream: 40 100% 96%;
   }
 }
 
@@ -32,18 +40,29 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-/* Custom scrollbar */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Hide scrollbar for all elements */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb transparent;
 }
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #e5e7eb;
+  border-radius: 3px;
 }
 
 /* Smooth scrolling */
@@ -56,18 +75,18 @@ html {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Image loading placeholder */
+/* Image placeholder */
 img {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  background: linear-gradient(135deg, hsl(var(--pastel-peach)) 0%, hsl(var(--pastel-pink)) 100%);
 }
 
 /* Focus styles */
 *:focus-visible {
-  outline: 2px solid hsl(24.6 95% 53.1%);
+  outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
-/* Animation utilities */
+/* Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -77,22 +96,47 @@ img {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
-/* Gradient text */
-.gradient-text {
-  @apply bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent;
+/* Soft gradient backgrounds */
+.bg-soft-gradient {
+  background: linear-gradient(135deg, hsl(var(--pastel-peach)) 0%, hsl(var(--pastel-pink)) 50%, hsl(var(--pastel-lavender)) 100%);
 }
 
-/* Card hover effects */
+.bg-soft-peach {
+  background: hsl(var(--pastel-peach));
+}
+
+.bg-soft-pink {
+  background: hsl(var(--pastel-pink));
+}
+
+.bg-soft-lavender {
+  background: hsl(var(--pastel-lavender));
+}
+
+.bg-soft-mint {
+  background: hsl(var(--pastel-mint));
+}
+
+.bg-soft-sky {
+  background: hsl(var(--pastel-sky));
+}
+
+/* Gradient text - softer version */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-pink-400;
+}
+
+/* Card hover effect */
 .card-hover {
-  @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
+  @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
 }
 
 /* Button active state */
-button:active {
+button:active:not(:disabled) {
   transform: scale(0.98);
 }
 
-/* Line clamp utility */
+/* Line clamp utilities */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -105,4 +149,38 @@ button:active {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Disabled state */
+.disabled-state {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
+}
+
+/* Tooltip animation */
+@keyframes tooltipFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-animate {
+  animation: tooltipFade 0.15s ease-out;
+}
+
+/* Chat bubble styles */
+.chat-bubble-user {
+  background: linear-gradient(135deg, hsl(24 80% 88%) 0%, hsl(340 80% 90%) 100%);
+}
+
+.chat-bubble-ai {
+  background: hsl(var(--pastel-lavender));
+}
+
+/* Pulse animation for AI */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 1.5s ease-in-out infinite;
 }
