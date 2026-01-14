@@ -98,6 +98,7 @@ export default function Home({ user }) {
                 currentUserEmail={user?.email}
                 userLikes={userLikes}
                 onLikeUpdate={handleLikeUpdate}
+                onDelete={() => queryClient.invalidateQueries({ queryKey: ['posts'] })}
               />
             ))
           )}
