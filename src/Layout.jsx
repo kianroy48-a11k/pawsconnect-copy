@@ -53,18 +53,18 @@ export default function Layout({ children, currentPageName }) {
         <div className="text-center max-w-md">
           {/* Logo Animation */}
           <div className="relative mb-8">
-            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center mx-auto shadow-xl shadow-orange-200">
-              <span className="text-4xl">🐾</span>
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-200 to-pink-200 flex items-center justify-center mx-auto shadow-lg shadow-orange-100">
+                <span className="text-4xl">🐾</span>
+              </div>
+              <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-green-300 border-2 border-white flex items-center justify-center">
+                <span className="text-xs">✓</span>
+              </div>
             </div>
-            <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
-              <span className="text-xs">✓</span>
-            </div>
-          </div>
           
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">Welcome to Pawbook</h1>
-          <p className="text-gray-500 mb-8 text-lg leading-relaxed">
-            The social network for pet lovers. Connect with fellow pet parents, share adorable moments, and discover local services.
-          </p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-3">Welcome to Pawbook</h1>
+                  <p className="text-gray-500 mb-8 text-lg leading-relaxed">
+                    The social network for pet lovers. Connect with fellow pet parents, share adorable moments, and discover local services.
+                  </p>
           
           {/* Features */}
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -84,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
           
           <button
             onClick={() => base44.auth.redirectToLogin()}
-            className="w-full py-4 px-6 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-2xl font-semibold hover:opacity-90 transition-all hover:shadow-lg hover:shadow-orange-200 text-lg"
+            className="w-full py-4 px-6 bg-gradient-to-r from-orange-300 to-pink-300 text-gray-800 rounded-2xl font-semibold hover:from-orange-400 hover:to-pink-400 transition-all hover:shadow-lg hover:shadow-orange-100 text-lg"
           >
             Get Started
           </button>
