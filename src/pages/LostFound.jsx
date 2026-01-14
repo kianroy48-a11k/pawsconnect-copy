@@ -134,6 +134,7 @@ export default function LostFound({ user }) {
                     currentUserEmail={user?.email}
                     userLikes={userLikes}
                     onLikeUpdate={loadUserLikes}
+                    onDelete={() => window.location.reload()}
                   />
                 </div>
               ))}
@@ -145,6 +146,7 @@ export default function LostFound({ user }) {
                   currentUserEmail={user?.email}
                   userLikes={userLikes}
                   onLikeUpdate={loadUserLikes}
+                  onDelete={() => window.location.reload()}
                 />
               ))}
             </>
@@ -168,6 +170,7 @@ export default function LostFound({ user }) {
                 currentUserEmail={user?.email}
                 userLikes={userLikes}
                 onLikeUpdate={loadUserLikes}
+                onDelete={() => window.location.reload()}
               />
             ))
           )}
