@@ -141,6 +141,10 @@ export default function Messages({ user }) {
 
   // Not signed in state
   if (!user) {
+    const handleSignIn = async () => {
+      await base44.auth.redirectToLogin(createPageUrl('Messages'));
+    };
+
     return (
       <TooltipProvider>
         <div className="max-w-[900px] border-r border-gray-100 min-h-screen flex">
@@ -158,7 +162,7 @@ export default function Messages({ user }) {
                 <p className="text-gray-500 font-medium mb-2">Sign in to view messages</p>
                 <p className="text-gray-400 text-sm mb-4">Connect with other pet lovers</p>
                 <Button 
-                  onClick={() => base44.auth.redirectToLogin()}
+                  onClick={handleSignIn}
                   className="bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 rounded-full"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
