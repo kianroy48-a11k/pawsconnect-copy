@@ -20,7 +20,8 @@ const NAV_ITEMS = [
   { name: 'Services', icon: MapPin, page: 'Services', tooltip: 'Find pet services' },
   { name: 'Challenges', icon: Trophy, page: 'Challenges', tooltip: 'Pet challenges' },
   { name: 'Adopt', icon: Heart, page: 'Adoption', tooltip: 'Adopt a pet' },
-  { name: 'Lost & Found', icon: AlertCircle, page: 'LostFound', tooltip: 'Lost & found pets' }
+  { name: 'Lost & Found', icon: AlertCircle, page: 'LostFound', tooltip: 'Lost & found pets' },
+  { name: 'Report Lost Pet', icon: AlertCircle, page: 'CreatePost', tooltip: 'Report your lost pet', action: 'lost' }
 ];
 
 export default function Sidebar({ currentPage, user }) {
