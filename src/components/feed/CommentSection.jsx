@@ -61,10 +61,11 @@ export default function CommentSection({ postId, currentUserEmail, onCommentAdde
       setNewComment('');
       
       // Update comment count on the post
-      const postData = await base44.entities.Post.filter({ id: postId });
-      if (postData.length > 0) {
+      const postData = await base44.entities.Post.list('-created_date', 1000);
+      const currentPost = postData.find(p => p.id === postId);
+      if (currentPost) {
         await base44.entities.Post.update(postId, { 
-          comments_count: (postData[0].comments_count || 0) + 1 
+          comments_count: (currentPost.comments_count || 0) + 1 
         });
       }
       onCommentAdded?.();
