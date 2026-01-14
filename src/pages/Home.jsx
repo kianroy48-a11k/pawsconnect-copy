@@ -58,7 +58,7 @@ export default function Home({ user }) {
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-4">
-            <h1 className="text-xl font-bold text-gray-900">Home</h1>
+            <h1 className="text-xl font-bold text-gray-800">Home</h1>
           </div>
         </header>
 
