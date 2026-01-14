@@ -25,8 +25,8 @@ export default function Layout({ children, currentPageName }) {
     }
   };
 
-  // Pages that don't need auth
-  const publicPages = ['Landing'];
+  // Pages that don't need auth - none for this app, all require login
+  const publicPages = [];
   const isPublicPage = publicPages.includes(currentPageName);
 
   if (isLoading) {
