@@ -12,12 +12,12 @@ import moment from 'moment';
 import { cn } from "@/lib/utils";
 
 const CATEGORY_COLORS = {
-  photo: 'from-pink-400 to-rose-500',
-  trick: 'from-blue-400 to-indigo-500',
-  adventure: 'from-green-400 to-emerald-500',
-  wellness: 'from-cyan-400 to-teal-500',
-  fashion: 'from-purple-400 to-violet-500',
-  friendship: 'from-orange-400 to-amber-500'
+  photo: 'from-pink-200 to-rose-200',
+  trick: 'from-blue-200 to-indigo-200',
+  adventure: 'from-green-200 to-emerald-200',
+  wellness: 'from-cyan-200 to-teal-200',
+  fashion: 'from-purple-200 to-violet-200',
+  friendship: 'from-orange-200 to-amber-200'
 };
 
 const CATEGORY_ICONS = {
@@ -108,11 +108,11 @@ export default function Challenges({ user }) {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center">
-              <Trophy className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-pink-100 flex items-center justify-center">
+              <Trophy className="w-5 h-5 text-orange-400" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Challenges</h1>
+              <h1 className="text-xl font-bold text-gray-800">Challenges</h1>
               <p className="text-sm text-gray-500">Join fun challenges with your pets!</p>
             </div>
           </div>
@@ -135,13 +135,13 @@ export default function Challenges({ user }) {
             "bg-gradient-to-br",
             CATEGORY_COLORS[selectedChallenge.category] || CATEGORY_COLORS.photo
           )}>
-            <div className="p-6 text-white">
-              <Badge className="bg-white/20 text-white mb-3">
+            <div className="p-6 text-gray-800">
+              <Badge className="bg-white/50 text-gray-700 mb-3">
                 #{selectedChallenge.hashtag}
               </Badge>
               <h2 className="text-2xl font-bold mb-2">{selectedChallenge.title}</h2>
-              <p className="text-white/90">{selectedChallenge.description}</p>
-              <div className="flex items-center gap-4 mt-4 text-white/80 text-sm">
+              <p className="text-gray-700">{selectedChallenge.description}</p>
+              <div className="flex items-center gap-4 mt-4 text-gray-600 text-sm">
                 <span className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
                   {selectedChallenge.participants_count || 0} participants
