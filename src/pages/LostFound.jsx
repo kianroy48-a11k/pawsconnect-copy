@@ -93,17 +93,17 @@ export default function LostFound({ user }) {
         {/* Tabs */}
         <div className="px-4 pb-0">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="w-full bg-transparent border-b border-gray-100 rounded-none h-auto p-0">
+            <TabsList className="w-full bg-gray-100 p-1 rounded-xl h-auto">
               <TabsTrigger 
                 value="lost" 
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-red-500 data-[state=active]:bg-transparent data-[state=active]:text-red-600 py-3"
+                className="flex-1 rounded-lg data-[state=active]:bg-white text-gray-700 data-[state=active]:text-red-600 py-2 font-medium"
               >
                 <AlertTriangle className="w-4 h-4 mr-2" />
                 Lost ({lostPosts.length})
               </TabsTrigger>
               <TabsTrigger 
                 value="found" 
-                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-green-500 data-[state=active]:bg-transparent data-[state=active]:text-green-600 py-3"
+                className="flex-1 rounded-lg data-[state=active]:bg-white text-gray-700 data-[state=active]:text-green-600 py-2 font-medium"
               >
                 <CheckCircle className="w-4 h-4 mr-2" />
                 Found ({foundPosts.length})
