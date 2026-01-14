@@ -84,23 +84,41 @@ export default function Services({ user }) {
           </div>
         </div>
 
-        {/* Type Filter */}
-        <div className="px-4 pb-3 flex gap-2 overflow-x-auto scrollbar-hide">
-          {SERVICE_TYPES.map((type) => (
-            <button
-              key={type.value}
-              onClick={() => setSelectedType(type.value)}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition",
-                selectedType === type.value
-                  ? "bg-orange-300 text-gray-800"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              )}
-            >
-              <span>{type.icon}</span>
-              <span className="text-sm font-medium">{type.label}</span>
-            </button>
-          ))}
+        {/* Location Search */}
+        <div className="px-4 pb-3 flex gap-2">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              value={userLocation}
+              onChange={(e) => setUserLocation(e.target.value)}
+              placeholder="Search by location..."
+              className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
+            />
+          </div>
+          <Button 
+            onClick={detectLocation}
+            variant="outline"
+            className="rounded-full whitespace-nowrap"
+          >
+            📍 Auto Detect
+          </Button>
+        </div>
+
+        {/* Type Filter Dropdown */}
+        <div className="px-4 pb-3">
+          <Select value={selectedType} onValueChange={setSelectedType}>
+            <SelectTrigger className="rounded-full">
+              <SelectValue placeholder="Filter by service type" />
+            </SelectTrigger>
+            <SelectContent>
+              {SERVICE_TYPES.map((type) => (
+                <SelectItem key={type.value} value={type.value}>
+                  <span className="mr-2">{type.icon}</span>
+                  {type.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </header>
 
