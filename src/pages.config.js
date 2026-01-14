@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import LostFound from './pages/LostFound';
 import Messages from './pages/Messages';
 import Profile from './pages/Profile';
-import Saved from './pages/Saved';
 import Services from './pages/Services';
 import __Layout from './Layout.jsx';
 
@@ -20,7 +19,6 @@ export const PAGES = {
     "LostFound": LostFound,
     "Messages": Messages,
     "Profile": Profile,
-    "Saved": Saved,
     "Services": Services,
 }
 

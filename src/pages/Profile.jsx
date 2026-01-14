@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import { Settings, Plus, Camera, MapPin, Calendar, Link as LinkIcon } from 'lucide-react';
+import { Settings, Plus, Camera, MapPin, Calendar, Bookmark } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -55,8 +55,21 @@ export default function Profile({ user }) {
     queryFn: async () => {
       if (!user?.email) return [];
       const allPosts = await base44.entities.Post.filter({ created_by: user.email }, '-created_date');
-      // Double check filtering on client side
       return allPosts.filter(post => post.created_by === user.email);
+    },
+    enabled: !!user?.email
+  });
+
+  // Fetch saved posts
+  const { data: savedPostsData = [], isLoading: loadingSaved } = useQuery({
+    queryKey: ['saved-posts', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const savedItems = await base44.entities.SavedPost.filter({ user_email: user.email });
+      const postIds = savedItems.map(s => s.post_id);
+      if (postIds.length === 0) return [];
+      const allPosts = await base44.entities.Post.list('-created_date', 100);
+      return allPosts.filter(p => postIds.includes(p.id));
     },
     enabled: !!user?.email
   });
@@ -131,11 +144,11 @@ export default function Profile({ user }) {
 
       {/* Profile Banner */}
       <div className="relative">
-        <div className="h-32 bg-gradient-to-r from-orange-100 to-pink-100" />
+        <div className="h-32 bg-gradient-to-r from-blue-100 to-sky-100" />
         <div className="absolute -bottom-12 left-4">
-          <Avatar className="h-24 w-24 border-4 border-white ring-2 ring-orange-100">
+          <Avatar className="h-24 w-24 border-4 border-white ring-2 ring-blue-100 flex-shrink-0 avatar-circle">
             <AvatarImage src={user.avatar_url} />
-            <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 text-2xl font-bold">
+            <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700 text-2xl font-bold">
               {user.full_name?.charAt(0)?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -181,7 +194,7 @@ export default function Profile({ user }) {
                 <Button 
                   onClick={handleUpdateProfile} 
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </Button>
@@ -225,15 +238,22 @@ export default function Profile({ user }) {
         <TabsList className="w-full bg-transparent border-b border-gray-100 rounded-none h-auto p-0">
           <TabsTrigger 
             value="posts" 
-            className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-orange-500 data-[state=active]:bg-transparent py-3"
+            className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent py-3"
           >
             Posts
           </TabsTrigger>
           <TabsTrigger 
             value="pets" 
-            className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-orange-500 data-[state=active]:bg-transparent py-3"
+            className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent py-3"
           >
             My Pets
+          </TabsTrigger>
+          <TabsTrigger 
+            value="saved" 
+            className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-transparent py-3"
+          >
+            <Bookmark className="w-4 h-4 mr-1" />
+            Saved
           </TabsTrigger>
         </TabsList>
 
@@ -264,7 +284,7 @@ export default function Profile({ user }) {
             {/* Add Pet Card */}
             <Dialog open={showAddPet} onOpenChange={setShowAddPet}>
               <DialogTrigger asChild>
-                <button className="aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2 hover:border-orange-300 hover:bg-orange-50/50 transition">
+                <button className="aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2 hover:border-blue-300 hover:bg-blue-50/50 transition">
                   <Plus className="w-8 h-8 text-gray-400" />
                   <span className="text-sm text-gray-500">Add Pet</span>
                 </button>
@@ -320,7 +340,7 @@ export default function Profile({ user }) {
                   <Button 
                     onClick={handleAddPet} 
                     disabled={!newPet.name.trim() || isSubmitting}
-                    className="w-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Adding...' : 'Add Pet'}
                   </Button>
@@ -332,7 +352,7 @@ export default function Profile({ user }) {
             {pets.map(pet => (
               <div 
                 key={pet.id} 
-                className="aspect-square rounded-2xl bg-gradient-to-br from-orange-50 to-pink-50 p-4 flex flex-col items-center justify-center"
+                className="aspect-square rounded-2xl bg-gradient-to-br from-blue-50 to-sky-50 p-4 flex flex-col items-center justify-center"
               >
                 <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-3xl">
                   {pet.species === 'dog' ? '🐕' : 
@@ -348,6 +368,29 @@ export default function Profile({ user }) {
               </div>
             ))}
           </div>
+        </TabsContent>
+
+        <TabsContent value="saved" className="mt-0">
+          {loadingSaved ? (
+            <div className="p-8 text-center text-gray-500">Loading saved posts...</div>
+          ) : savedPostsData.length === 0 ? (
+            <div className="p-8 text-center">
+              <Bookmark className="w-12 h-12 mx-auto text-gray-300 mb-3" />
+              <p className="text-gray-500">No saved posts yet</p>
+              <p className="text-gray-400 text-sm mt-1">Save posts to view them here later</p>
+            </div>
+          ) : (
+            savedPostsData.map(post => (
+              <PostCard
+                key={post.id}
+                post={post}
+                currentUserEmail={user.email}
+                userLikes={userLikes}
+                onLikeUpdate={loadUserLikes}
+                onDelete={() => queryClient.invalidateQueries({ queryKey: ['saved-posts'] })}
+              />
+            ))
+          )}
         </TabsContent>
       </Tabs>
     </div>

@@ -21,9 +21,9 @@ export default function TrendingWidget() {
   };
 
   return (
-    <div className="bg-orange-50/50 rounded-2xl p-4">
+    <div className="bg-blue-50/50 rounded-2xl p-4">
       <div className="flex items-center gap-2 mb-4">
-        <Flame className="w-5 h-5 text-orange-400" />
+        <Flame className="w-5 h-5 text-blue-400" />
         <h3 className="font-semibold text-gray-800">Trending Challenges</h3>
       </div>
       
@@ -40,7 +40,7 @@ export default function TrendingWidget() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium text-sm text-gray-900">{challenge.title}</p>
-                  <p className="text-xs text-orange-500 mt-0.5">#{challenge.hashtag}</p>
+                  <p className="text-xs text-blue-500 mt-0.5">#{challenge.hashtag}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-gray-500">{challenge.participants_count || 0} entries</p>
@@ -53,7 +53,7 @@ export default function TrendingWidget() {
       
       <Link 
         to={createPageUrl('Challenges')}
-        className="flex items-center justify-center gap-1 mt-4 text-sm text-orange-400 hover:text-orange-500 transition"
+        className="flex items-center justify-center gap-1 mt-4 text-sm text-blue-400 hover:text-blue-500 transition"
       >
         <span>View all challenges</span>
         <ChevronRight className="w-4 h-4" />
