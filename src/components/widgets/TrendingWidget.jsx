@@ -6,9 +6,16 @@ import { base44 } from '@/api/base44Client';
 
 export default function TrendingWidget() {
   const [challenges, setChallenges] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     loadChallenges();
+    // Check for saved dark mode preference
+    const savedMode = localStorage.getItem('darkMode') === 'true';
+    setIsDarkMode(savedMode);
+    if (savedMode) {
+      document.documentElement.classList.add('dark');
+    }
   }, []);
 
   const loadChallenges = async () => {
