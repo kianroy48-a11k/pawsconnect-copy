@@ -95,15 +95,26 @@ export default function LostFound({ user }) {
             </div>
           )}
 
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by location or description..."
-              className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
-            />
+          {/* Search and City Filter */}
+          <div className="space-y-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by description..."
+                className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
+              />
+            </div>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                value={userCity}
+                onChange={(e) => setUserCity(e.target.value)}
+                placeholder="Enter your city to filter..."
+                className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
+              />
+            </div>
           </div>
         </div>
 
