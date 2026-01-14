@@ -34,7 +34,7 @@ export default function Layout({ children, currentPageName }) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-pink-500 animate-pulse" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-200 to-pink-200 animate-pulse" />
           <p className="text-gray-400 text-sm">Loading...</p>
         </div>
       </div>
