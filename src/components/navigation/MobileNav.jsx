@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Search, PlusSquare, Heart, User } from 'lucide-react';
+import { Home, Search, PlusSquare, MessageSquare, User } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { name: 'Home', icon: Home, page: 'Home' },
   { name: 'Explore', icon: Search, page: 'Explore' },
   { name: 'Create', icon: PlusSquare, page: 'CreatePost' },
-  { name: 'Adopt', icon: Heart, page: 'Adoption' },
+  { name: 'Messages', icon: MessageSquare, page: 'Messages' },
   { name: 'Profile', icon: User, page: 'Profile' }
 ];
 
@@ -26,8 +26,9 @@ export default function MobileNav({ currentPage }) {
               to={createPageUrl(item.page)}
               className={cn(
                 "flex flex-col items-center gap-1 p-2 rounded-xl transition-all",
-                isActive ? "text-orange-500" : "text-gray-400"
+                isActive ? "text-orange-400" : "text-gray-400"
               )}
+              aria-label={item.name}
             >
               <Icon className={cn("w-6 h-6", isActive && "stroke-[2.5px]")} />
               <span className="text-[10px] font-medium">{item.name}</span>
