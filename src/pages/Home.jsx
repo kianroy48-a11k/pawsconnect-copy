@@ -12,11 +12,21 @@ export default function Home({ user }) {
   const [userLikes, setUserLikes] = useState([]);
 
   // Fetch posts
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: posts = [], isLoading, refetch } = useQuery({
     queryKey: ['posts'],
     queryFn: () => base44.entities.Post.list('-created_date', 50),
     refetchInterval: 30000, // Refresh every 30 seconds
   });
+
+  // Real-time subscription for new posts
+  useEffect(() => {
+    const unsubscribe = base44.entities.Post.subscribe((event) => {
+      if (event.type === 'create' || event.type === 'update' || event.type === 'delete') {
+        queryClient.invalidateQueries({ queryKey: ['posts'] });
+      }
+    });
+    return () => unsubscribe();
+  }, [queryClient]);
 
   // Fetch user's likes
   const loadUserLikes = useCallback(async () => {

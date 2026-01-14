@@ -53,6 +53,14 @@ export default function CommentSection({ postId, currentUserEmail, onCommentAdde
       });
       setComments(prev => [comment, ...prev]);
       setNewComment('');
+      
+      // Update comment count on the post
+      const postData = await base44.entities.Post.filter({ id: postId });
+      if (postData.length > 0) {
+        await base44.entities.Post.update(postId, { 
+          comments_count: (postData[0].comments_count || 0) + 1 
+        });
+      }
       onCommentAdded?.();
     } catch (error) {
       console.error('Failed to add comment:', error);
