@@ -159,7 +159,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
           <div className="flex items-start gap-3">
             <Avatar className="h-11 w-11 ring-2 ring-gray-100">
               <AvatarImage src={post.author_avatar} alt={post.author_name} />
-              <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 font-medium">
+              <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700 font-medium">
                 {post.author_name?.charAt(0)?.toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -215,7 +215,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             {post.tags?.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {post.tags.map((tag, i) => (
-                  <span key={i} className="text-orange-500 text-sm hover:underline cursor-pointer">
+                  <span key={i} className="text-blue-500 text-sm hover:underline cursor-pointer">
                     #{tag}
                   </span>
                 ))}
@@ -250,7 +250,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
                     variant="ghost" 
                     size="sm"
                     onClick={() => setShowComments(!showComments)}
-                    className="text-gray-500 hover:text-orange-400 hover:bg-orange-50 rounded-full px-3 gap-2"
+                    className="text-gray-500 hover:text-blue-400 hover:bg-blue-50 rounded-full px-3 gap-2"
                     aria-label="Comments"
                   >
                     <MessageCircle className="w-[18px] h-[18px]" />
@@ -307,8 +307,8 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
                     className={cn(
                       "rounded-full px-3 disabled:opacity-50 disabled:cursor-not-allowed",
                       isSaved 
-                        ? "text-orange-400 hover:text-orange-500 hover:bg-orange-50" 
-                        : "text-gray-500 hover:text-orange-400 hover:bg-orange-50"
+                        ? "text-blue-400 hover:text-blue-500 hover:bg-blue-50" 
+                        : "text-gray-500 hover:text-blue-400 hover:bg-blue-50"
                     )}
                     aria-label={isSaved ? "Unsave" : "Save"}
                   >

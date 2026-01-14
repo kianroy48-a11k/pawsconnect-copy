@@ -26,7 +26,7 @@ export default function MobileNav({ currentPage }) {
               to={createPageUrl(item.page)}
               className={cn(
                 "flex flex-col items-center gap-1 p-2 rounded-xl transition-all",
-                isActive ? "text-orange-400" : "text-gray-400"
+                isActive ? "text-blue-500" : "text-gray-400"
               )}
               aria-label={item.name}
             >
