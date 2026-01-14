@@ -52,9 +52,9 @@ export default function Home({ user }) {
   };
 
   return (
-    <div className="flex min-h-screen">
-      {/* Main Feed */}
-      <div className="flex-1 max-w-[600px] border-r border-gray-100">
+    <div className="flex min-h-screen justify-center">
+      {/* Main Feed - Center aligned */}
+      <div className="w-full max-w-[600px] border-r border-gray-100">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-4">
