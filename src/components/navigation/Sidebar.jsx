@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Search, Bell, Bookmark, User, PawPrint, MapPin, Trophy, Heart, Settings, LogOut } from 'lucide-react';
+import { Home, Search, Bell, Bookmark, User, PawPrint, MapPin, Trophy, Heart, Settings, LogOut, PenSquare } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { base44 } from '@/api/base44Client';
@@ -35,6 +35,16 @@ export default function Sidebar({ currentPage, user }) {
           Pawbook
         </span>
       </Link>
+
+      {/* Post Button */}
+      <div className="px-2 xl:px-4 mb-4">
+        <Link to={createPageUrl('CreatePost')} className="block">
+          <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 rounded-full h-12 xl:h-auto">
+            <PenSquare className="w-5 h-5 xl:mr-2" />
+            <span className="hidden xl:inline font-semibold">New Post</span>
+          </Button>
+        </Link>
+      </div>
 
       {/* Navigation Items */}
       <div className="flex-1 px-2 xl:px-4 space-y-1">
