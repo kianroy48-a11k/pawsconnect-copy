@@ -49,10 +49,15 @@ export default function Profile({ user }) {
     enabled: !!user?.email
   });
 
-  // Fetch user's posts
+  // Fetch user's posts - filter by created_by matching user's email
   const { data: posts = [], isLoading: loadingPosts } = useQuery({
     queryKey: ['user-posts', user?.email],
-    queryFn: () => base44.entities.Post.filter({ created_by: user?.email }, '-created_date'),
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const allPosts = await base44.entities.Post.filter({ created_by: user.email }, '-created_date');
+      // Double check filtering on client side
+      return allPosts.filter(post => post.created_by === user.email);
+    },
     enabled: !!user?.email
   });
 
@@ -126,11 +131,11 @@ export default function Profile({ user }) {
 
       {/* Profile Banner */}
       <div className="relative">
-        <div className="h-32 bg-gradient-to-r from-orange-400 to-pink-500" />
+        <div className="h-32 bg-gradient-to-r from-orange-100 to-pink-100" />
         <div className="absolute -bottom-12 left-4">
           <Avatar className="h-24 w-24 border-4 border-white ring-2 ring-orange-100">
             <AvatarImage src={user.avatar_url} />
-            <AvatarFallback className="bg-gradient-to-br from-orange-400 to-pink-500 text-white text-2xl font-bold">
+            <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 text-2xl font-bold">
               {user.full_name?.charAt(0)?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -176,7 +181,7 @@ export default function Profile({ user }) {
                 <Button 
                   onClick={handleUpdateProfile} 
                   disabled={isSubmitting}
-                  className="w-full bg-orange-500 hover:bg-orange-600"
+                  className="w-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </Button>
@@ -315,7 +320,7 @@ export default function Profile({ user }) {
                   <Button 
                     onClick={handleAddPet} 
                     disabled={!newPet.name.trim() || isSubmitting}
-                    className="w-full bg-orange-500 hover:bg-orange-600"
+                    className="w-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Adding...' : 'Add Pet'}
                   </Button>
