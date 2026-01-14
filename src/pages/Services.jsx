@@ -41,10 +41,25 @@ export default function Services({ user }) {
     }
   });
 
-  const filteredServices = services.filter(s => 
-    s.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    s.city?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const detectLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // For now, just a placeholder - in real app would convert coords to city
+        setUserLocation('Current Location');
+      }, () => {
+        setUserLocation('');
+      });
+    }
+  };
+
+  const filteredServices = services.filter(s => {
+    const matchesSearch = s.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.city?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (!userLocation) return matchesSearch;
+    
+    return matchesSearch && s.city?.toLowerCase().includes(userLocation.toLowerCase());
+  });
 
   const getServiceIcon = (type) => {
     return SERVICE_TYPES.find(t => t.value === type)?.icon || '📍';
