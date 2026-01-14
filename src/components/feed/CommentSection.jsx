@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Loader2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { base44 } from '@/api/base44Client';
 import moment from 'moment';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function CommentSection({ postId, currentUserEmail, onCommentAdded }) {
   const [comments, setComments] = useState([]);
@@ -70,32 +76,45 @@ export default function CommentSection({ postId, currentUserEmail, onCommentAdde
   };
 
   return (
-    <div className="mt-4 pt-4 border-t border-gray-100 ml-14">
-      {/* Comment Input */}
-      {currentUserEmail && (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2 mb-4">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={currentUser?.avatar_url} />
-            <AvatarFallback className="bg-gradient-to-br from-orange-400 to-pink-500 text-white text-xs">
-              {currentUser?.full_name?.charAt(0)?.toUpperCase() || '?'}
-            </AvatarFallback>
-          </Avatar>
-          <Input
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Write a comment..."
-            className="flex-1 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
-          />
-          <Button 
-            type="submit" 
-            size="icon"
-            disabled={!newComment.trim() || isSubmitting}
-            className="rounded-full bg-orange-500 hover:bg-orange-600 h-9 w-9"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
-        </form>
-      )}
+    <TooltipProvider>
+      <div className="mt-4 pt-4 border-t border-gray-100 ml-14">
+        {/* Comment Input */}
+        {currentUserEmail && (
+          <form onSubmit={handleSubmit} className="flex items-center gap-2 mb-4">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={currentUser?.avatar_url} />
+              <AvatarFallback className="bg-gradient-to-br from-orange-200 to-pink-200 text-gray-700 text-xs">
+                {currentUser?.full_name?.charAt(0)?.toUpperCase() || '?'}
+              </AvatarFallback>
+            </Avatar>
+            <Input
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Write a comment..."
+              className="flex-1 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-400"
+              disabled={isSubmitting}
+              aria-label="Write a comment"
+            />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  type="submit" 
+                  size="icon"
+                  disabled={!newComment.trim() || isSubmitting}
+                  className="rounded-full bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 h-9 w-9 disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Send comment"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Send comment</TooltipContent>
+            </Tooltip>
+          </form>
+        )}
 
       {/* Comments List */}
       <div className="space-y-3">
@@ -124,5 +143,6 @@ export default function CommentSection({ postId, currentUserEmail, onCommentAdde
         )}
       </div>
     </div>
+    </TooltipProvider>
   );
 }
