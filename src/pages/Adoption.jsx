@@ -68,11 +68,11 @@ export default function Adoption({ user }) {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
+              <Heart className="w-5 h-5 text-pink-400" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Adopt a Pet</h1>
+              <h1 className="text-xl font-bold text-gray-800">Adopt a Pet</h1>
               <p className="text-sm text-gray-500">Give a pet a loving forever home</p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function Adoption({ user }) {
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition",
                 speciesFilter === filter.value
-                  ? "bg-pink-500 text-white"
+                  ? "bg-pink-300 text-gray-800"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               )}
             >
@@ -171,7 +171,7 @@ export default function Adoption({ user }) {
                         ))}
                       </div>
                     )}
-                    <Button className="w-full bg-pink-500 hover:bg-pink-600 rounded-full">
+                    <Button className="w-full bg-gradient-to-r from-pink-300 to-rose-300 hover:from-pink-400 hover:to-rose-400 text-gray-800 rounded-full">
                       <Heart className="w-4 h-4 mr-2" />
                       Inquire About Adoption
                     </Button>

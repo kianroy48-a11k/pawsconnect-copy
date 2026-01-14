@@ -77,7 +77,7 @@ export default function Services({ user }) {
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition",
                 selectedType === type.value
-                  ? "bg-orange-500 text-white"
+                  ? "bg-orange-300 text-gray-800"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               )}
             >
@@ -222,7 +222,7 @@ export default function Services({ user }) {
                     {/* Action Buttons */}
                     <div className="flex gap-3 pt-4">
                       {service.phone && (
-                        <Button asChild className="flex-1 bg-orange-500 hover:bg-orange-600 rounded-full">
+                        <Button asChild className="flex-1 bg-gradient-to-r from-orange-300 to-pink-300 hover:from-orange-400 hover:to-pink-400 text-gray-800 rounded-full">
                           <a href={`tel:${service.phone}`}>
                             <Phone className="w-4 h-4 mr-2" />
                             Call Now
