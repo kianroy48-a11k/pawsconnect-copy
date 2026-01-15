@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare } from 'lucide-react';
+import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare, Bell, Moon, Sun } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,24 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar({ currentPage, user }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem('darkMode') === 'true';
+    setIsDarkMode(savedMode);
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('darkMode', String(newMode));
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   const handleLogout = () => {
     base44.auth.logout();
   };
