@@ -136,7 +136,7 @@ Original post: "${content}"`,
             value={content}
             onChange={(e) => setContent(e.target.value)}
             onFocus={() => setIsExpanded(true)}
-            placeholder="What's happening with your pet?"
+            placeholder=""
             className={cn(
               "border-0 resize-none text-[15px] placeholder:text-muted-foreground focus-visible:ring-0 p-0 min-h-[60px] bg-transparent",
               isExpanded && "min-h-[100px]"
