@@ -77,19 +77,19 @@ export default function Home({ user }) {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-background">
       {/* Main Feed - Center aligned */}
-      <div className="w-full max-w-[750px] border-r border-gray-100 mx-auto">
+      <div className="w-full max-w-[750px] border-r border-border mx-auto">
         {/* Header */}
-        <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
           <div className="px-4 py-3">
             <div className="flex items-center justify-center gap-3 max-w-[750px] mx-auto">
-              <h1 className="text-xl font-bold text-gray-800 flex-shrink-0">Home</h1>
+              <h1 className="text-xl font-bold text-foreground flex-shrink-0">Home</h1>
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input 
                   placeholder="Search PawsConnect..." 
-                  className="pl-9 bg-gray-50 border-0 focus-visible:ring-blue-500 h-9"
+                  className="pl-9 bg-muted border-0 focus-visible:ring-blue-500 h-9"
                 />
               </div>
               <Button
@@ -136,8 +136,8 @@ export default function Home({ user }) {
           ) : posts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
               <span className="text-6xl mb-4">🐾</span>
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">Welcome to Pawbook!</h2>
-              <p className="text-gray-500 max-w-sm">
+              <h2 className="text-xl font-semibold text-foreground mb-2">Welcome to Pawbook!</h2>
+              <p className="text-muted-foreground max-w-sm">
                 This is your home feed. Start by creating a post about your pet or explore to find other pet lovers!
               </p>
             </div>

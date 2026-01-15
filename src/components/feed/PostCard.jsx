@@ -153,7 +153,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
 
   return (
     <TooltipProvider>
-      <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all mb-3 mx-3">
+      <article className="bg-card rounded-xl shadow-sm hover:shadow-md transition-all mb-3 mx-3 border border-border">
         <div className="px-4 py-4">
           {/* Header */}
           <div className="flex items-start gap-3">
@@ -167,9 +167,9 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-semibold text-gray-900 text-[15px]">{post.author_name}</span>
-                <span className="text-gray-400 text-sm">·</span>
-                <span className="text-gray-500 text-sm">{moment(post.created_date).fromNow()}</span>
+                <span className="font-semibold text-foreground text-[15px]">{post.author_name}</span>
+                <span className="text-muted-foreground text-sm">·</span>
+                <span className="text-muted-foreground text-sm">{moment(post.created_date).fromNow()}</span>
                 {typeConfig.label && (
                   <Badge variant="outline" className={cn("text-xs font-medium", typeConfig.color)}>
                     {post.is_urgent && <AlertTriangle className="w-3 h-3 mr-1" />}
@@ -199,13 +199,13 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             </div>
             
             {/* Content */}
-            <p className="mt-2 text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
+            <p className="mt-2 text-foreground text-base leading-relaxed whitespace-pre-wrap">
               {post.content}
             </p>
 
             {/* Location */}
             {post.location && (
-              <div className="flex items-center gap-1 mt-2 text-gray-600 text-[15px]">
+              <div className="flex items-center gap-1 mt-2 text-muted-foreground text-[15px]">
                 <MapPin className="w-4 h-4" />
                 <span>{post.location}</span>
               </div>
@@ -224,7 +224,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             
             {/* Image */}
             {post.image_url && (
-              <div className="mt-3 rounded-xl overflow-hidden border border-gray-100">
+              <div className="mt-3 rounded-xl overflow-hidden border border-border">
                 <img 
                   src={post.image_url} 
                   alt="Post content" 
@@ -233,7 +233,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
                 />
 
                 {/* Interaction Bar */}
-                <div className="flex items-center gap-1 px-3 py-2 bg-white border-t border-gray-100">
+                <div className="flex items-center gap-1 px-3 py-2 bg-card border-t border-border">
                   <button 
                     onClick={handleLike}
                     disabled={isLiking || !currentUserEmail}

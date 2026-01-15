@@ -28,7 +28,7 @@ export default function Layout({ children, currentPageName }) {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Desktop Sidebar */}
       <div className="hidden md:block">
         <Sidebar user={user} currentPage={currentPageName} />
