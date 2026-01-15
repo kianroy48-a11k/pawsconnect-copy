@@ -142,7 +142,7 @@ export default function Profile({ user }) {
   }
 
   return (
-    <div className="max-w-[600px] border-r border-gray-100 min-h-screen">
+    <div className="max-w-[600px] mx-auto border-r border-gray-100 min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4 flex items-center justify-between">
