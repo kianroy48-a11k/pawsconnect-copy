@@ -36,8 +36,8 @@ export default function Sidebar({ currentPage, user }) {
           className="flex items-center gap-3 px-4 py-6 xl:px-6"
           aria-label="Pawbook Home"
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-sky-200 flex items-center justify-center flex-shrink-0 logo-circle">
-           <svg className="w-6 h-6" viewBox="0 0 100 100" fill="currentColor" className="text-blue-600">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-sky-200 flex items-center justify-center flex-shrink-0 logo-circle text-blue-600">
+           <svg className="w-6 h-6" viewBox="0 0 100 100" fill="currentColor">
              <ellipse cx="50" cy="25" rx="12" ry="14" />
              <ellipse cx="28" cy="35" rx="10" ry="13" />
              <ellipse cx="72" cy="35" rx="10" ry="13" />
