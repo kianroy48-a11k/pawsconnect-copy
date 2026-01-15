@@ -32,9 +32,9 @@ export default function SuggestedServices() {
   };
 
   return (
-    <div className="bg-amber-50/50 rounded-2xl p-4">
-      <div className="flex items-center gap-2 mb-4">
-        <MapPin className="w-5 h-5 text-amber-500" />
+    <div className="bg-amber-50/50 rounded-2xl p-4 text-left">
+      <div className="flex items-start gap-2 mb-4">
+        <MapPin className="w-5 h-5 text-amber-500 mt-0.5" />
         <h3 className="font-semibold text-gray-800">Nearby Services</h3>
       </div>
       

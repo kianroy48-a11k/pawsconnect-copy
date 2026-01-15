@@ -90,10 +90,44 @@ export default function Sidebar({ currentPage, user }) {
                 </TooltipTrigger>
                 <TooltipContent side="right" className="xl:hidden">{item.tooltip}</TooltipContent>
               </Tooltip>
-            );
-          })}
+              );
+              })}
 
-          {/* Report Lost Pet - Sub-item under Lost & Found */}
+              {/* Quick Actions - Notification & Dark Mode */}
+              <div className="pt-4 mt-4 border-t border-gray-100 space-y-1">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full"
+                    aria-label="Notifications"
+                  >
+                    <Bell className="w-6 h-6" />
+                    <span className="hidden xl:block text-[15px] font-medium">Notifications</span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="xl:hidden">Notifications</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={toggleDarkMode}
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full"
+                    aria-label="Toggle dark mode"
+                  >
+                    {isDarkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+                    <span className="hidden xl:block text-[15px] font-medium">
+                      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                    </span>
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="xl:hidden">
+                  {isDarkMode ? 'Light mode' : 'Dark mode'}
+                </TooltipContent>
+              </Tooltip>
+              </div>
+
+              {/* Report Lost Pet - Sub-item under Lost & Found */}
           <div className="pl-4">
             <Tooltip>
               <TooltipTrigger asChild>
