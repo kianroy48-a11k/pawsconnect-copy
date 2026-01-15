@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { name: 'Home', icon: Home, page: 'Home' },
+  { name: 'Explore', icon: Search, page: 'Explore' },
   { name: 'Create', icon: PlusSquare, page: 'CreatePost' },
   { name: 'Messages', icon: MessageSquare, page: 'Messages' },
   { name: 'Profile', icon: User, page: 'Profile' }
