@@ -8,7 +8,7 @@ import SuggestedServices from '@/components/widgets/SuggestedServices';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Moon, Sun } from 'lucide-react';
+import { Search, Moon, Sun, Bell } from 'lucide-react';
 
 export default function Home({ user }) {
   const queryClient = useQueryClient();
@@ -92,6 +92,14 @@ export default function Home({ user }) {
                   className="pl-9 bg-gray-50 border-0 focus-visible:ring-blue-500 h-9"
                 />
               </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="flex-shrink-0"
+                aria-label="Notifications"
+              >
+                <Bell className="w-5 h-5" />
+              </Button>
               <Button
                 variant="ghost"
                 size="icon"
