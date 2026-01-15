@@ -70,38 +70,27 @@ export default function Services({ user }) {
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4">
-          <h1 className="text-xl font-bold text-gray-900 mb-4">Find Services</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-4">Find Services (Placeholder)</h1>
           
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by name or city..."
-              className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
-            />
+          {/* Search - Combined */}
+          <div className="flex gap-2 items-center">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by name or city..."
+                className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
+              />
+            </div>
+            <Button 
+              onClick={detectLocation}
+              variant="outline"
+              className="rounded-full whitespace-nowrap"
+            >
+              📍 Auto Detect
+            </Button>
           </div>
-        </div>
-
-        {/* Location Search */}
-        <div className="px-4 pb-3 flex gap-2">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              value={userLocation}
-              onChange={(e) => setUserLocation(e.target.value)}
-              placeholder="Search by location..."
-              className="pl-10 rounded-full bg-gray-100 border-0 focus-visible:ring-orange-500"
-            />
-          </div>
-          <Button 
-            onClick={detectLocation}
-            variant="outline"
-            className="rounded-full whitespace-nowrap"
-          >
-            📍 Auto Detect
-          </Button>
         </div>
 
         {/* Type Filter Dropdown */}

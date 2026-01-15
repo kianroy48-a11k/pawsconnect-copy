@@ -68,10 +68,11 @@ css
   }
 }
 
-/* Hide scrollbar for all elements */
+/* Hide scrollbar for all elements including side scroll */
 * {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  overflow-x: hidden !important;
 }
 
 *::-webkit-scrollbar {
@@ -89,6 +90,7 @@ html,
 body {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  overflow-x: hidden !important;
 }
 
 /* Smooth scrolling */
