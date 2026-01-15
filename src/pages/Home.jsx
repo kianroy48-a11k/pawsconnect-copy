@@ -81,15 +81,15 @@ export default function Home({ user }) {
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-3">
-            <div className="flex items-center gap-3">
-              <div className="relative flex-1">
+            <div className="flex items-center justify-center gap-3 max-w-[600px] mx-auto">
+              <h1 className="text-xl font-bold text-gray-800 flex-shrink-0">Home</h1>
+              <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input 
                   placeholder="Search PawsConnect..." 
                   className="pl-9 bg-gray-50 border-0 focus-visible:ring-blue-500 h-9"
                 />
               </div>
-              <h1 className="text-xl font-bold text-gray-800 flex-shrink-0">Home</h1>
               <Button
                 variant="ghost"
                 size="icon"
