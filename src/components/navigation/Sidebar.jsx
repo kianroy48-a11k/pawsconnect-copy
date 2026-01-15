@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare, Bell } from 'lucide-react';
+import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare, Bell, AlertTriangle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
