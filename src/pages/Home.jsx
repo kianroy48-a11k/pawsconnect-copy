@@ -7,11 +7,32 @@ import TrendingWidget from '@/components/widgets/TrendingWidget';
 import SuggestedServices from '@/components/widgets/SuggestedServices';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
-import { Search } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Search, Moon, Sun } from 'lucide-react';
 
 export default function Home({ user }) {
   const queryClient = useQueryClient();
   const [userLikes, setUserLikes] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem('darkMode') === 'true';
+    setIsDarkMode(savedMode);
+    if (savedMode) {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('darkMode', String(newMode));
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   // Fetch posts
   const { data: posts = [], isLoading, refetch } = useQuery({
@@ -69,6 +90,15 @@ export default function Home({ user }) {
                 />
               </div>
               <h1 className="text-xl font-bold text-gray-800 flex-shrink-0">Home</h1>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleDarkMode}
+                className="flex-shrink-0"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
             </div>
           </div>
         </header>

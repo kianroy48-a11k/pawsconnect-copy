@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare, Bell, Moon, Sun } from 'lucide-react';
+import { Home, Search, AlertCircle, MapPin, Trophy, Heart, LogOut, PenSquare, MessageSquare, Bell } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -24,24 +24,6 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar({ currentPage, user }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem('darkMode') === 'true';
-    setIsDarkMode(savedMode);
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    localStorage.setItem('darkMode', String(newMode));
-    if (newMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
   const handleLogout = () => {
     base44.auth.logout();
   };
@@ -111,7 +93,7 @@ export default function Sidebar({ currentPage, user }) {
               );
               })}
 
-              {/* Quick Actions - Notification & Dark Mode */}
+              {/* Quick Actions - Notification */}
               <div className="pt-4 mt-4 border-t border-gray-100 space-y-1">
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -124,24 +106,6 @@ export default function Sidebar({ currentPage, user }) {
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="right" className="xl:hidden">Notifications</TooltipContent>
-              </Tooltip>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    onClick={toggleDarkMode}
-                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full text-left"
-                    aria-label="Toggle dark mode"
-                  >
-                    {isDarkMode ? <Sun className="w-6 h-6 flex-shrink-0" /> : <Moon className="w-6 h-6 flex-shrink-0" />}
-                    <span className="hidden xl:block text-[15px] font-medium">
-                      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-                    </span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="xl:hidden">
-                  {isDarkMode ? 'Light mode' : 'Dark mode'}
-                </TooltipContent>
               </Tooltip>
               </div>
 
