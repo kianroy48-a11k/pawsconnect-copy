@@ -12,6 +12,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import NotificationPanel from '@/components/notifications/NotificationPanel';
 
 const NAV_ITEMS = [
   { name: 'Home', icon: Home, page: 'Home', tooltip: 'Home feed' },
@@ -95,18 +101,25 @@ export default function Sidebar({ currentPage, user }) {
 
               {/* Quick Actions - Notification */}
               <div className="pt-4 mt-4 border-t border-border space-y-1">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-muted-foreground hover:bg-muted w-full text-left"
-                    aria-label="Notifications"
-                  >
-                    <Bell className="w-6 h-6 flex-shrink-0" />
-                    <span className="hidden xl:block text-[15px] font-medium">Notifications</span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="xl:hidden">Notifications</TooltipContent>
-              </Tooltip>
+              <Popover>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <PopoverTrigger asChild>
+                      <button
+                        className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-muted-foreground hover:bg-muted w-full text-left"
+                        aria-label="Notifications"
+                      >
+                        <Bell className="w-6 h-6 flex-shrink-0" />
+                        <span className="hidden xl:block text-[15px] font-medium">Notifications</span>
+                      </button>
+                    </PopoverTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="xl:hidden">Notifications</TooltipContent>
+                </Tooltip>
+                <PopoverContent className="p-0" align="start" side="right">
+                  <NotificationPanel />
+                </PopoverContent>
+              </Popover>
               </div>
 
               {/* Report Lost Pet - Sub-item under Lost & Found */}
