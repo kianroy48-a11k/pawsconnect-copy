@@ -55,8 +55,8 @@ export default function NotificationPanel() {
   const notifications = MOCK_NOTIFICATIONS;
 
   return (
-    <div className="w-96 max-h-[500px] flex flex-col">
-      <div className="p-4 border-b border-border">
+    <div className="w-96 max-h-[500px] flex flex-col bg-background">
+      <div className="p-4 border-b border-border bg-background">
         <h2 className="text-lg font-bold text-foreground">Notifications</h2>
       </div>
       
