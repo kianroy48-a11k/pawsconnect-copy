@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/feed/PostCard';
-import CreatePost from '@/components/feed/CreatePost';
 import TrendingWidget from '@/components/widgets/TrendingWidget';
 import SuggestedServices from '@/components/widgets/SuggestedServices';
 import { Skeleton } from "@/components/ui/skeleton";
@@ -112,11 +111,6 @@ export default function Home({ user }) {
             </div>
           </div>
         </header>
-
-        {/* Create Post */}
-        {user && (
-          <CreatePost user={user} onPostCreated={handlePostCreated} />
-        )}
 
         {/* Posts Feed */}
         <div>
