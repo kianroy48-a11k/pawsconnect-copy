@@ -23,7 +23,7 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState([
     { 
       role: 'assistant', 
-      content: "Hi! I'm **Pawly**, your friendly pet assistant! 🐾\n\nI can help you with:\n- Pet care tips\n- Health advice\n- Training suggestions\n- Nutrition guidance\n\nHow can I help you today?" 
+      content: "Hi! I'm **PawBot**, your AI pet assistant! 🤖\n\nI can help you with:\n- Pet care tips\n- Health advice\n- Training suggestions\n- Nutrition guidance\n\nHow can I help you today?" 
     }
   ]);
   const [input, setInput] = useState('');
@@ -48,7 +48,7 @@ export default function AIChatbot() {
 
     try {
       const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `You are Pawly, a friendly and knowledgeable pet assistant. You help users with pet-related questions about care, health, training, nutrition, behavior, and general pet advice. Be warm, helpful, and use emojis occasionally. Format your responses nicely using markdown (bold, italics, bullet points, etc).
+        prompt: `You are PawBot, an AI pet assistant. You help users with pet-related questions about care, health, training, nutrition, behavior, and general pet advice. Be warm, helpful, and use emojis occasionally. Format your responses nicely using markdown (bold, italics, bullet points, etc).
 
 User question: ${userMessage}
 
@@ -61,7 +61,7 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
       console.error('AI error:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment! 🐾" 
+        content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment! 🤖" 
       }]);
     } finally {
       setIsLoading(false);
@@ -90,12 +90,18 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-100 to-sky-100 px-4 py-3 flex items-center justify-between border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-sky-400 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 flex items-center justify-center flex-shrink-0 text-white">
+                  <svg className="w-5 h-5" viewBox="0 0 100 100" fill="currentColor">
+                    <rect x="25" y="20" width="50" height="45" rx="5" />
+                    <circle cx="35" cy="35" r="6" fill="#fff" />
+                    <circle cx="65" cy="35" r="6" fill="#fff" />
+                    <rect x="30" y="50" width="10" height="15" />
+                    <rect x="60" y="50" width="10" height="15" />
+                  </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 text-sm">Pawly</h3>
-                  <p className="text-xs text-gray-500">Your Pet Assistant</p>
+                  <h3 className="font-semibold text-gray-800 text-sm">PawBot</h3>
+                  <p className="text-xs text-gray-500">AI Pet Assistant</p>
                 </div>
               </div>
               <Tooltip>
@@ -220,17 +226,23 @@ Provide a helpful, accurate, and friendly response. If the question is not pet-r
                   ? "bg-gray-100 hover:bg-gray-200" 
                   : "bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500"
               )}
-              aria-label={isOpen ? "Close Pawly chat" : "Open Pawly chat"}
+              aria-label={isOpen ? "Close PawBot" : "Open PawBot"}
             >
               {isOpen ? (
                 <X className="w-6 h-6 text-gray-600" />
               ) : (
-                <MessageCircle className="w-6 h-6 text-white" />
+                <svg className="w-6 h-6 text-white" viewBox="0 0 100 100" fill="currentColor">
+                  <rect x="25" y="20" width="50" height="45" rx="5" />
+                  <circle cx="35" cy="35" r="6" fill="#fff" />
+                  <circle cx="65" cy="35" r="6" fill="#fff" />
+                  <rect x="30" y="50" width="10" height="15" />
+                  <rect x="60" y="50" width="10" height="15" />
+                </svg>
               )}
             </Button>
           </TooltipTrigger>
           <TooltipContent side="left">
-            {isOpen ? "Close Pawly" : "Chat with Pawly"}
+            {isOpen ? "Close PawBot" : "Chat with PawBot"}
           </TooltipContent>
         </Tooltip>
       </div>

@@ -70,7 +70,7 @@ export default function Services({ user }) {
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="px-4 py-4">
-          <h1 className="text-xl font-bold text-gray-900 mb-4">Find Services (Placeholder)</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-4">Find Services</h1>
           
           {/* Search - Combined */}
           <div className="flex gap-2 items-center">

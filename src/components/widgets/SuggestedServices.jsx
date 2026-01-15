@@ -32,13 +32,13 @@ export default function SuggestedServices() {
   };
 
   return (
-    <div className="bg-amber-50/50 rounded-2xl p-4 text-left">
+    <div className="bg-amber-50/50 rounded-2xl p-4 text-left overflow-hidden">
       <div className="flex items-start gap-2 mb-4">
         <MapPin className="w-5 h-5 text-amber-500 mt-0.5" />
         <h3 className="font-semibold text-gray-800">Nearby Services</h3>
       </div>
       
-      <div className="space-y-3">
+      <div className="space-y-3 max-h-64 overflow-hidden">
         {services.length === 0 ? (
           <div className="text-center py-8">
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-gray-100 flex items-center justify-center">
