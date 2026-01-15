@@ -92,6 +92,28 @@ export default function Sidebar({ currentPage, user }) {
               );
               })}
 
+          {/* Report Lost Pet - Softer Design */}
+          <div className="mt-4 pt-4 border-t border-border">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to={createPageUrl('CreatePost')}
+                  className={cn(
+                    "flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-left",
+                    currentPage === 'CreatePost' 
+                      ? "bg-amber-50 text-amber-600" 
+                      : "text-amber-600 hover:bg-amber-50"
+                  )}
+                  aria-label="Report lost pet"
+                >
+                  <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+                  <span className="hidden xl:block text-[15px] font-medium">Report Lost Pet</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right" className="xl:hidden">Report lost pet</TooltipContent>
+            </Tooltip>
+          </div>
+
 
 
 
