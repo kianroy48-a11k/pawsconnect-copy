@@ -77,7 +77,7 @@ export default function Home({ user }) {
   return (
     <div className="flex min-h-screen">
       {/* Main Feed - Center aligned */}
-      <div className="w-full max-w-[600px] border-r border-gray-100 mx-auto lg:mr-[175px]">
+      <div className="w-full max-w-[600px] border-r border-gray-100 mx-auto">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-3">
@@ -147,7 +147,7 @@ export default function Home({ user }) {
       </div>
 
       {/* Right Sidebar - Desktop Only - STICKY - Extreme Right */}
-      <div className="hidden lg:block w-[350px] flex-shrink-0 absolute right-0">
+      <div className="hidden lg:block w-[350px] flex-shrink-0 ml-auto">
         <div className="sticky top-0 p-4 pr-6 space-y-4 max-h-screen overflow-y-auto">
           <TrendingWidget />
           <SuggestedServices />
