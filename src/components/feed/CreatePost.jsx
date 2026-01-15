@@ -122,9 +122,9 @@ Original post: "${content}"`,
 
   return (
     <TooltipProvider>
-      <div className="bg-white border-b border-gray-100 px-4 py-4">
+      <div className="bg-card border-b border-border px-4 py-4">
         <div className="flex gap-3">
-          <Avatar className="h-11 w-11 ring-2 ring-gray-100">
+          <Avatar className="h-11 w-11 ring-2 ring-border">
             <AvatarImage src={user?.avatar_url} />
             <AvatarFallback className="bg-gradient-to-br from-blue-200 to-sky-200 text-gray-700 font-medium">
               {user?.full_name?.charAt(0)?.toUpperCase() || '?'}
@@ -138,7 +138,7 @@ Original post: "${content}"`,
             onFocus={() => setIsExpanded(true)}
             placeholder="What's happening with your pet?"
             className={cn(
-              "border-0 resize-none text-[15px] placeholder:text-gray-400 focus-visible:ring-0 p-0 min-h-[60px]",
+              "border-0 resize-none text-[15px] placeholder:text-muted-foreground focus-visible:ring-0 p-0 min-h-[60px] bg-transparent",
               isExpanded && "min-h-[100px]"
             )}
           />
@@ -177,7 +177,7 @@ Original post: "${content}"`,
 
               {showLocationField && (
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-gray-400" />
+                  <MapPin className="w-4 h-4 text-muted-foreground" />
                   <Input
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
@@ -203,7 +203,7 @@ Original post: "${content}"`,
                     checked={isUrgent}
                     onCheckedChange={setIsUrgent}
                   />
-                  <Label htmlFor="urgent" className="flex items-center gap-1 text-sm text-gray-600">
+                  <Label htmlFor="urgent" className="flex items-center gap-1 text-sm text-muted-foreground">
                     <AlertTriangle className="w-4 h-4 text-red-500" />
                     Mark as urgent
                   </Label>
@@ -213,7 +213,7 @@ Original post: "${content}"`,
           )}
 
           {/* Actions Bar */}
-          <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
             <div className="flex items-center gap-1">
               <input
                 ref={fileInputRef}
