@@ -30,7 +30,7 @@ export default function Sidebar({ currentPage, user }) {
 
   return (
     <TooltipProvider>
-      <nav className="fixed left-0 top-0 h-full w-[68px] xl:w-[260px] flex flex-col border-r border-gray-100 bg-white z-50">
+      <nav className="fixed left-0 top-0 h-full w-[68px] xl:w-[260px] flex flex-col border-r border-border bg-background z-50">
         {/* Logo */}
         <Link 
           to={createPageUrl('Home')}
@@ -75,7 +75,7 @@ export default function Sidebar({ currentPage, user }) {
                       "flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-left",
                       isActive 
                         ? "bg-blue-50 text-blue-500" 
-                        : "text-gray-600 hover:bg-gray-50"
+                        : "text-muted-foreground hover:bg-muted"
                     )}
                     aria-label={item.tooltip}
                   >
@@ -94,11 +94,11 @@ export default function Sidebar({ currentPage, user }) {
               })}
 
               {/* Quick Actions - Notification */}
-              <div className="pt-4 mt-4 border-t border-gray-100 space-y-1">
+              <div className="pt-4 mt-4 border-t border-border space-y-1">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full text-left"
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-muted-foreground hover:bg-muted w-full text-left"
                     aria-label="Notifications"
                   >
                     <Bell className="w-6 h-6 flex-shrink-0" />
@@ -133,7 +133,7 @@ export default function Sidebar({ currentPage, user }) {
         </div>
 
         {/* User Section at Bottom */}
-        <div className="p-2 xl:p-4 border-t border-gray-100">
+        <div className="p-2 xl:p-4 border-t border-border">
           {/* Profile Link */}
           {user && (
             <Tooltip>
@@ -141,7 +141,7 @@ export default function Sidebar({ currentPage, user }) {
                 <Link
                   to={createPageUrl('Profile')}
                   className={cn(
-                    "flex items-center gap-3 p-2 xl:p-3 rounded-xl hover:bg-gray-50 transition cursor-pointer mb-2",
+                    "flex items-center gap-3 p-2 xl:p-3 rounded-xl hover:bg-muted transition cursor-pointer mb-2",
                     currentPage === 'Profile' && "bg-blue-50"
                   )}
                   aria-label="Your profile"
@@ -153,8 +153,8 @@ export default function Sidebar({ currentPage, user }) {
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden xl:block flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-gray-900 truncate">{user.full_name}</p>
-                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    <p className="font-semibold text-sm text-foreground truncate">{user.full_name}</p>
+                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                   </div>
                 </Link>
               </TooltipTrigger>
@@ -168,7 +168,7 @@ export default function Sidebar({ currentPage, user }) {
               <Button
                 variant="ghost"
                 onClick={handleLogout}
-                className="w-full justify-start text-gray-500 hover:text-red-500 hover:bg-red-50"
+                className="w-full justify-start text-muted-foreground hover:text-red-500 hover:bg-red-50"
                 aria-label="Log out"
               >
                 <LogOut className="w-5 h-5 mr-3" />
