@@ -7,7 +7,9 @@ import SuggestedServices from '@/components/widgets/SuggestedServices';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Moon, Sun, Bell } from 'lucide-react';
+import { Search, Moon, Sun, Bell, AlertTriangle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
 import {
   Popover,
   PopoverContent,
@@ -166,8 +168,31 @@ export default function Home({ user }) {
       {/* Right Sidebar - Desktop Only - STICKY - Extreme Right */}
       <div className="hidden lg:block w-[350px] flex-shrink-0 ml-auto">
         <div className="sticky top-0 p-4 pr-6 space-y-4 max-h-screen overflow-y-auto">
+          {/* Report Lost Pet Button */}
+          <Link to={createPageUrl('CreatePost')}>
+            <div className="bg-red-50 hover:bg-red-100 border-2 border-red-200 rounded-2xl p-4 text-center cursor-pointer transition">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-red-200 flex items-center justify-center">
+                <AlertTriangle className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="font-bold text-red-700 mb-1">Report Lost Pet</h3>
+              <p className="text-sm text-red-600">Help find missing pets in your area</p>
+            </div>
+          </Link>
+
           <TrendingWidget />
           <SuggestedServices />
+          
+          {/* All Hashtags Widget */}
+          <div className="bg-blue-50/50 rounded-2xl p-4">
+            <h3 className="font-semibold text-gray-800 mb-4">Trending Hashtags</h3>
+            <div className="flex flex-wrap gap-2">
+              {['#AdoptDontShop', '#PetChallenge', '#LostPet', '#PetCare', '#DogLife', '#CatLovers', '#PetTraining', '#PetHealth', '#RescuePets', '#PawsomeLife'].map((tag) => (
+                <span key={tag} className="px-3 py-1.5 bg-white rounded-full text-sm text-blue-500 hover:bg-blue-100 cursor-pointer transition">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
