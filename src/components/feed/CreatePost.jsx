@@ -35,7 +35,6 @@ export default function CreatePost({ user, onPostCreated }) {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isEnhancing, setIsEnhancing] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -111,7 +110,6 @@ Original post: "${content}"`,
       setContactInfo('');
       setIsUrgent(false);
       removeImage();
-      setIsExpanded(false);
       onPostCreated?.();
     } catch (error) {
       console.error('Failed to create post:', error);
@@ -135,12 +133,8 @@ Original post: "${content}"`,
           <Textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            onFocus={() => setIsExpanded(true)}
             placeholder=""
-            className={cn(
-              "border-0 resize-none text-[15px] placeholder:text-muted-foreground focus-visible:ring-0 p-0 min-h-[60px] bg-transparent",
-              isExpanded && "min-h-[100px]"
-            )}
+            className="border-0 resize-none text-[15px] placeholder:text-muted-foreground focus-visible:ring-0 p-0 min-h-[60px] bg-transparent"
           />
 
           {/* Image Preview */}
@@ -153,62 +147,6 @@ Original post: "${content}"`,
               >
                 <X className="w-4 h-4 text-white" />
               </button>
-            </div>
-          )}
-
-          {/* Expanded Options */}
-          {isExpanded && (
-            <div className="mt-4 space-y-3">
-              <Select value={postType} onValueChange={setPostType}>
-                <SelectTrigger className="w-full rounded-xl">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {POST_TYPES.map(type => (
-                    <SelectItem key={type.value} value={type.value}>
-                      <span className="flex items-center gap-2">
-                        <span>{type.icon}</span>
-                        <span>{type.label}</span>
-                      </span>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              {showLocationField && (
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-muted-foreground" />
-                  <Input
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Add location"
-                    className="rounded-xl"
-                  />
-                </div>
-              )}
-
-              {showContactField && (
-                <Input
-                  value={contactInfo}
-                  onChange={(e) => setContactInfo(e.target.value)}
-                  placeholder="Contact info (phone or email)"
-                  className="rounded-xl"
-                />
-              )}
-
-              {showUrgentToggle && (
-                <div className="flex items-center gap-2">
-                  <Switch
-                    id="urgent"
-                    checked={isUrgent}
-                    onCheckedChange={setIsUrgent}
-                  />
-                  <Label htmlFor="urgent" className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <AlertTriangle className="w-4 h-4 text-red-500" />
-                    Mark as urgent
-                  </Label>
-                </div>
-              )}
             </div>
           )}
 
