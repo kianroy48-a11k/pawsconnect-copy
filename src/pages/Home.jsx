@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/feed/PostCard';
 import TrendingWidget from '@/components/widgets/TrendingWidget';
 import SuggestedServices from '@/components/widgets/SuggestedServices';
+import ReportLostPet from '@/components/widgets/ReportLostPet';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -166,6 +167,19 @@ export default function Home({ user }) {
       {/* Right Sidebar - Desktop Only - STICKY - Extreme Right */}
       <div className="hidden lg:block w-[350px] flex-shrink-0 ml-auto">
         <div className="sticky top-0 p-4 pr-6 space-y-4 max-h-screen overflow-y-auto">
+          <div className="bg-blue-50/50 rounded-2xl p-4">
+            <h3 className="font-semibold text-gray-800 mb-3">Trending Hashtags</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#PetAdoption</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#DogLife</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#CatsOfInstagram</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#PetCare</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#RescuePets</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#PuppyLove</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#PetTraining</span>
+              <span className="text-sm text-blue-500 hover:text-blue-600 cursor-pointer">#PetPhotography</span>
+            </div>
+          </div>
           <TrendingWidget />
           <SuggestedServices />
         </div>

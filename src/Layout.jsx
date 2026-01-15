@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Sidebar from '@/components/navigation/Sidebar';
 import MobileNav from '@/components/navigation/MobileNav';
 import AIChatbot from '@/components/common/AIChatbot';
 import { base44 } from '@/api/base44Client';
@@ -29,13 +28,8 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block">
-        <Sidebar user={user} currentPage={currentPageName} />
-      </div>
-
       {/* Main Content */}
-      <main className="md:ml-20 lg:ml-64 pb-20 md:pb-0">
+      <main className="pb-20 md:pb-0">
         {childrenWithProps}
       </main>
 
