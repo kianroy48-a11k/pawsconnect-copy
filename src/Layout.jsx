@@ -19,6 +19,14 @@ export default function Layout({ children, currentPageName }) {
     loadUser();
   }, []);
 
+  // Clone children and pass user prop
+  const childrenWithProps = React.Children.map(children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { user });
+    }
+    return child;
+  });
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Desktop Sidebar */}
@@ -28,7 +36,7 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Main Content */}
       <main className="md:ml-20 lg:ml-64 pb-20 md:pb-0">
-        {children}
+        {childrenWithProps}
       </main>
 
       {/* Mobile Navigation */}
