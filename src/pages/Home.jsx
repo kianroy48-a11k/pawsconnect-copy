@@ -54,9 +54,9 @@ export default function Home({ user }) {
   };
 
   return (
-    <div className="flex min-h-screen justify-center">
+    <div className="flex min-h-screen">
       {/* Main Feed - Center aligned */}
-      <div className="w-full max-w-[600px] border-r border-gray-100">
+      <div className="w-full max-w-[600px] border-r border-gray-100 mx-auto lg:mx-0 lg:ml-auto">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-3">
@@ -116,8 +116,8 @@ export default function Home({ user }) {
         </div>
       </div>
 
-      {/* Right Sidebar - Desktop Only - STICKY */}
-      <div className="hidden lg:block w-[350px]">
+      {/* Right Sidebar - Desktop Only - STICKY - Extreme Right */}
+      <div className="hidden lg:block w-[350px] ml-auto">
         <div className="sticky top-0 p-4 space-y-4 max-h-screen overflow-y-auto">
           <TrendingWidget />
           <SuggestedServices />
