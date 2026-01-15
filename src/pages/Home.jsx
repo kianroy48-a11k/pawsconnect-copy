@@ -77,11 +77,11 @@ export default function Home({ user }) {
   return (
     <div className="flex min-h-screen">
       {/* Main Feed - Center aligned */}
-      <div className="w-full max-w-[600px] border-r border-gray-100 mx-auto">
+      <div className="w-full max-w-[750px] border-r border-gray-100 mx-auto">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="px-4 py-3">
-            <div className="flex items-center justify-center gap-3 max-w-[600px] mx-auto">
+            <div className="flex items-center justify-center gap-3 max-w-[750px] mx-auto">
               <h1 className="text-xl font-bold text-gray-800 flex-shrink-0">Home</h1>
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
