@@ -102,13 +102,13 @@ export default function Sidebar({ currentPage, user }) {
                   className={cn(
                     "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all duration-200 text-xs",
                     currentPage === 'CreatePost' 
-                      ? "bg-red-50 text-red-500" 
-                      : "text-gray-500 hover:bg-gray-50"
+                      ? "bg-red-100 text-red-600" 
+                      : "text-red-500 hover:bg-red-50"
                   )}
                   aria-label="Report your lost pet"
                 >
                   <PenSquare className="w-5 h-5" />
-                  <span className="hidden xl:block">Report Lost Pet</span>
+                  <span className="hidden xl:block font-semibold">Report Lost Pet</span>
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right" className="xl:hidden">Report lost pet</TooltipContent>

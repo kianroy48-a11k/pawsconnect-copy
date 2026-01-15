@@ -101,23 +101,19 @@ export default function Adoption({ user }) {
           </div>
         </div>
 
-        {/* Species Filter */}
-        <div className="px-4 pb-3 flex gap-2 overflow-x-auto scrollbar-hide">
-          {SPECIES_FILTERS.map((filter) => (
-            <button
-              key={filter.value}
-              onClick={() => setSpeciesFilter(filter.value)}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition",
-                speciesFilter === filter.value
-                  ? "bg-blue-400 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              )}
-            >
-              <span>{filter.icon}</span>
-              <span className="text-sm font-medium">{filter.label}</span>
-            </button>
-          ))}
+        {/* Species Filter Dropdown */}
+        <div className="px-4 pb-3">
+          <select
+            value={speciesFilter}
+            onChange={(e) => setSpeciesFilter(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-lg bg-gray-100 border-0 text-sm font-medium text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          >
+            {SPECIES_FILTERS.map((filter) => (
+              <option key={filter.value} value={filter.value}>
+                {filter.icon} {filter.label}
+              </option>
+            ))}
+          </select>
         </div>
       </header>
 
