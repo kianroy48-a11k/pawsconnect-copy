@@ -132,17 +132,14 @@ export default function Services({ user }) {
                 <SheetTrigger asChild>
                   <Card className="cursor-pointer hover:shadow-md transition-all overflow-hidden">
                     <CardContent className="p-0">
-                      {service.image_url ? (
-                        <img 
-                          src={service.image_url} 
-                          alt={service.name}
-                          className="w-full h-32 object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-32 bg-gradient-to-br from-orange-100 to-pink-100 flex items-center justify-center">
-                          <span className="text-5xl">{getServiceIcon(service.type)}</span>
-                        </div>
-                      )}
+                      <img 
+                        src={service.image_url || `https://images.unsplash.com/photo-1552053831-71594a27c62d?w=400&h=300&fit=crop`}
+                        alt={service.name}
+                        className="w-full h-32 object-cover"
+                        onError={(e) => {
+                          e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(service.type)}`;
+                        }}
+                      />
                       <div className="p-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1 min-w-0">
@@ -174,17 +171,14 @@ export default function Services({ user }) {
                     <SheetTitle className="text-left">{service.name}</SheetTitle>
                   </SheetHeader>
                   <div className="mt-6 space-y-6">
-                    {service.image_url ? (
-                      <img 
-                        src={service.image_url} 
-                        alt={service.name}
-                        className="w-full h-48 object-cover rounded-2xl"
-                      />
-                    ) : (
-                      <div className="w-full h-48 bg-gradient-to-br from-orange-100 to-pink-100 rounded-2xl flex items-center justify-center">
-                        <span className="text-6xl">{getServiceIcon(service.type)}</span>
-                      </div>
-                    )}
+                    <img 
+                      src={service.image_url || `https://images.unsplash.com/photo-1552053831-71594a27c62d?w=600&h=400&fit=crop`}
+                      alt={service.name}
+                      className="w-full h-48 object-cover rounded-2xl"
+                      onError={(e) => {
+                        e.target.src = `https://via.placeholder.com/600x400?text=${encodeURIComponent(service.type)}`;
+                      }}
+                    />
 
                     {/* Rating */}
                     <div className="flex items-center gap-2">
