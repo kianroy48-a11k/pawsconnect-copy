@@ -15,7 +15,6 @@ import {
 
 const NAV_ITEMS = [
   { name: 'Home', icon: Home, page: 'Home', tooltip: 'Home feed' },
-  { name: 'Explore', icon: Search, page: 'Explore', tooltip: 'Explore posts' },
   { name: 'Messages', icon: MessageSquare, page: 'Messages', tooltip: 'Your messages' },
   { name: 'Services', icon: MapPin, page: 'Services', tooltip: 'Find pet services' },
   { name: 'Challenges', icon: Trophy, page: 'Challenges', tooltip: 'Pet challenges' },
@@ -38,7 +37,7 @@ export default function Sidebar({ currentPage, user }) {
           aria-label="Pawbook Home"
         >
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-sky-200 flex items-center justify-center flex-shrink-0 logo-circle">
-            <span className="text-xl">🐾</span>
+            <span className="text-2xl">🤖</span>
           </div>
           <span className="hidden xl:block text-xl font-bold bg-gradient-to-r from-blue-500 to-sky-400 bg-clip-text text-transparent">
             Pawbook
@@ -95,27 +94,7 @@ export default function Sidebar({ currentPage, user }) {
 
 
 
-              {/* Report Lost Pet - Sub-item under Lost & Found */}
-          <div className="pl-0">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to={createPageUrl('CreatePost')}
-                  className={cn(
-                    "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all duration-200 text-left",
-                    currentPage === 'CreatePost' 
-                      ? "bg-red-100 text-red-600" 
-                      : "text-red-600 hover:bg-red-50"
-                  )}
-                  aria-label="Report your lost pet"
-                >
-                  <PenSquare className="w-5 h-5 flex-shrink-0 text-red-600" />
-                  <span className="hidden xl:block font-bold text-sm text-red-600">Report Lost Pet</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right" className="xl:hidden">Report lost pet</TooltipContent>
-            </Tooltip>
-          </div>
+
         </div>
 
         {/* User Section at Bottom */}
