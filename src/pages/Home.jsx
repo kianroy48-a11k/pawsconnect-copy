@@ -88,41 +88,41 @@ export default function Home({ user }) {
       <div className="w-full max-w-[750px] border-r border-border mx-auto">
         {/* Header */}
         <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
-          <div className="px-4 py-3">
-            <div className="flex items-center justify-center gap-3 max-w-[750px] mx-auto">
-              <h1 className="text-xl font-bold text-foreground flex-shrink-0">Home</h1>
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input 
-                  placeholder="Search PawsConnect..." 
-                  className="pl-9 bg-muted border-0 focus-visible:ring-blue-500 h-9"
-                />
-              </div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="flex-shrink-0"
-                    aria-label="Notifications"
-                  >
-                    <Bell className="w-5 h-5" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0" align="end">
-                  <NotificationPanel />
-                </PopoverContent>
-              </Popover>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleDarkMode}
-                className="flex-shrink-0"
-                aria-label="Toggle dark mode"
-              >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </Button>
+          <div className="px-4 py-3 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-sky-400 flex items-center justify-center text-white text-xl logo-circle">
+              🤖
             </div>
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search PawsConnect..." 
+                className="pl-9 bg-muted border-0 focus-visible:ring-blue-500 h-9"
+              />
+            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="flex-shrink-0"
+                  aria-label="Notifications"
+                >
+                  <Bell className="w-5 h-5" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-0" align="end">
+                <NotificationPanel />
+              </PopoverContent>
+            </Popover>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleDarkMode}
+              className="flex-shrink-0"
+              aria-label="Toggle dark mode"
+            >
+              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </Button>
           </div>
         </header>
 
@@ -167,6 +167,7 @@ export default function Home({ user }) {
       {/* Right Sidebar - Desktop Only - STICKY - Extreme Right */}
       <div className="hidden lg:block w-[350px] flex-shrink-0 ml-auto">
         <div className="sticky top-0 p-4 pr-6 space-y-4 max-h-screen overflow-y-auto">
+          <ReportLostPet />
           <div className="bg-blue-50/50 rounded-2xl p-4">
             <h3 className="font-semibold text-gray-800 mb-3">Trending Hashtags</h3>
             <div className="flex flex-wrap gap-2">
