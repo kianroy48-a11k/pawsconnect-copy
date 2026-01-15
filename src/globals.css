@@ -1,3 +1,4 @@
+css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -69,22 +70,12 @@
 
 /* Hide scrollbar for all elements */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #e5e7eb transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #e5e7eb;
-  border-radius: 3px;
+  display: none;
 }
 
 /* Smooth scrolling */
