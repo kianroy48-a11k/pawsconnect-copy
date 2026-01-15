@@ -40,7 +40,12 @@ export default function SuggestedServices() {
       
       <div className="space-y-3">
         {services.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-4">No services found</p>
+          <div className="text-center py-8">
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-gray-100 flex items-center justify-center">
+              <MapPin className="w-6 h-6 text-gray-300" />
+            </div>
+            <p className="text-sm text-gray-400">No services found</p>
+          </div>
         ) : (
           services.map((service) => (
             <Link

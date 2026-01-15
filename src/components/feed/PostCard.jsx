@@ -153,7 +153,7 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
 
   return (
     <TooltipProvider>
-      <article className="bg-white border-b border-gray-100 hover:bg-gray-50/30 transition-colors">
+      <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all mb-3 mx-3">
         <div className="px-4 py-4">
           {/* Header */}
           <div className="flex items-start gap-3">
@@ -199,14 +199,14 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             </div>
             
             {/* Content */}
-            <p className="mt-2 text-gray-800 text-[15px] leading-relaxed whitespace-pre-wrap">
+            <p className="mt-2 text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
               {post.content}
             </p>
-            
+
             {/* Location */}
             {post.location && (
-              <div className="flex items-center gap-1 mt-2 text-gray-500 text-sm">
-                <MapPin className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-1 mt-2 text-gray-600 text-[15px]">
+                <MapPin className="w-4 h-4" />
                 <span>{post.location}</span>
               </div>
             )}
@@ -224,25 +224,82 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
             
             {/* Image */}
             {post.image_url && (
-              <div className="mt-3 rounded-2xl overflow-hidden border border-gray-100">
+              <div className="mt-3 rounded-xl overflow-hidden border border-gray-100">
                 <img 
                   src={post.image_url} 
                   alt="Post content" 
                   className="w-full max-h-[500px] object-cover"
                   loading="lazy"
                 />
+
+                {/* Interaction Bar */}
+                <div className="flex items-center gap-1 px-3 py-2 bg-white border-t border-gray-100">
+                  <button 
+                    onClick={handleLike}
+                    disabled={isLiking || !currentUserEmail}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition disabled:opacity-50",
+                      isLiked 
+                        ? "text-red-500 bg-red-50" 
+                        : "text-gray-600 hover:bg-gray-50"
+                    )}
+                  >
+                    <Heart className={cn("w-4 h-4", isLiked && "fill-current")} />
+                    <span className="text-sm font-medium">Like</span>
+                  </button>
+
+                  <button 
+                    onClick={() => setShowComments(!showComments)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span className="text-sm font-medium">Comment</span>
+                  </button>
+
+                  <button 
+                    onClick={handleShare}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"
+                  >
+                    <Share2 className="w-4 h-4" />
+                    <span className="text-sm font-medium">Share</span>
+                  </button>
+
+                  <div className="ml-auto">
+                    <button 
+                      onClick={handleSave}
+                      disabled={isSaving || !currentUserEmail}
+                      className={cn(
+                        "p-1.5 rounded-lg transition disabled:opacity-50",
+                        isSaved 
+                          ? "text-blue-500 bg-blue-50" 
+                          : "text-gray-500 hover:bg-gray-50"
+                      )}
+                    >
+                      {isSaved ? (
+                        <BookmarkCheck className="w-4 h-4 fill-current" />
+                      ) : (
+                        <Bookmark className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
-            
-            {/* Contact Info for special posts */}
+
+            {/* Contact Button for special posts */}
             {post.contact_info && (post.post_type === 'adoption' || post.post_type === 'lost') && (
-              <div className="mt-3 p-3 bg-gray-50 rounded-xl text-sm">
-                <span className="text-gray-500">Contact: </span>
-                <span className="text-gray-800 font-medium">{post.contact_info}</span>
+              <div className="mt-3">
+                <Button 
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+                  onClick={() => window.open(`mailto:${post.contact_info}`, '_blank')}
+                >
+                  Contact Owner
+                </Button>
               </div>
             )}
-            
-            {/* Actions */}
+
+            {/* Actions - Only show if no image */}
+            {!post.image_url && (
             <div className="flex items-center justify-between mt-3 pt-2 -ml-2">
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -321,9 +378,10 @@ export default function PostCard({ post, currentUserEmail, onLikeUpdate, userLik
                 </TooltipTrigger>
                 <TooltipContent>{isSaved ? "Unsave" : "Save"}</TooltipContent>
               </Tooltip>
-            </div>
-            </div>
-            </div>
+              </div>
+              )}
+              </div>
+              </div>
         
         {/* Comments Section */}
         {showComments && (

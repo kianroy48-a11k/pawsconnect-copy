@@ -90,14 +90,14 @@ export default function Sidebar({ currentPage, user }) {
                   <Link
                     to={createPageUrl(item.page)}
                     className={cn(
-                      "flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200",
+                      "flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-left",
                       isActive 
                         ? "bg-blue-50 text-blue-500" 
                         : "text-gray-600 hover:bg-gray-50"
                     )}
                     aria-label={item.tooltip}
                   >
-                    <Icon className={cn("w-6 h-6", isActive && "stroke-[2.5px]")} />
+                    <Icon className={cn("w-6 h-6 flex-shrink-0", isActive && "stroke-[2.5px]")} />
                     <span className={cn(
                       "hidden xl:block text-[15px]",
                       isActive ? "font-semibold" : "font-medium"
@@ -116,10 +116,10 @@ export default function Sidebar({ currentPage, user }) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full"
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full text-left"
                     aria-label="Notifications"
                   >
-                    <Bell className="w-6 h-6" />
+                    <Bell className="w-6 h-6 flex-shrink-0" />
                     <span className="hidden xl:block text-[15px] font-medium">Notifications</span>
                   </button>
                 </TooltipTrigger>
@@ -130,10 +130,10 @@ export default function Sidebar({ currentPage, user }) {
                 <TooltipTrigger asChild>
                   <button
                     onClick={toggleDarkMode}
-                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full"
+                    className="flex items-center gap-4 px-3 py-3 rounded-xl transition-all duration-200 text-gray-600 hover:bg-gray-50 w-full text-left"
                     aria-label="Toggle dark mode"
                   >
-                    {isDarkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+                    {isDarkMode ? <Sun className="w-6 h-6 flex-shrink-0" /> : <Moon className="w-6 h-6 flex-shrink-0" />}
                     <span className="hidden xl:block text-[15px] font-medium">
                       {isDarkMode ? 'Light Mode' : 'Dark Mode'}
                     </span>
@@ -146,21 +146,21 @@ export default function Sidebar({ currentPage, user }) {
               </div>
 
               {/* Report Lost Pet - Sub-item under Lost & Found */}
-          <div className="pl-4">
+          <div className="pl-0">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
                   to={createPageUrl('CreatePost')}
                   className={cn(
-                    "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all duration-200 text-xs",
+                    "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all duration-200 text-left",
                     currentPage === 'CreatePost' 
                       ? "bg-red-100 text-red-600" 
                       : "text-red-500 hover:bg-red-50"
                   )}
                   aria-label="Report your lost pet"
                 >
-                  <PenSquare className="w-5 h-5" />
-                  <span className="hidden xl:block font-semibold">Report Lost Pet</span>
+                  <PenSquare className="w-5 h-5 flex-shrink-0" />
+                  <span className="hidden xl:block font-semibold text-sm">Report Lost Pet</span>
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right" className="xl:hidden">Report lost pet</TooltipContent>

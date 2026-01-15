@@ -47,7 +47,12 @@ export default function TrendingWidget() {
       
       <div className="space-y-3">
         {challenges.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-4">No active challenges</p>
+          <div className="text-center py-8">
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-gray-100 flex items-center justify-center">
+              <Flame className="w-6 h-6 text-gray-300" />
+            </div>
+            <p className="text-sm text-gray-400">No active challenges</p>
+          </div>
         ) : (
           challenges.map((challenge) => (
             <Link
