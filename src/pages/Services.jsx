@@ -65,6 +65,19 @@ export default function Services({ user }) {
     return SERVICE_TYPES.find(t => t.value === type)?.icon || '📍';
   };
 
+  const getServiceImage = (type) => {
+    const imageMap = {
+      vet: 'https://images.unsplash.com/photo-1630438994394-3deff7a591bf?w=400&h=300&fit=crop',
+      pet_sitter: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=300&fit=crop',
+      groomer: 'https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?w=400&h=300&fit=crop',
+      trainer: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?w=400&h=300&fit=crop',
+      boarding: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=300&fit=crop',
+      walker: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop',
+      store: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop'
+    };
+    return imageMap[type] || 'https://images.unsplash.com/photo-1552053831-71594a27c62d?w=400&h=300&fit=crop';
+  };
+
   return (
     <div className="max-w-[900px] min-h-screen">
       {/* Header */}
@@ -133,12 +146,9 @@ export default function Services({ user }) {
                   <Card className="cursor-pointer hover:shadow-md transition-all overflow-hidden">
                     <CardContent className="p-0">
                       <img 
-                        src={service.image_url || `https://images.unsplash.com/photo-1552053831-71594a27c62d?w=400&h=300&fit=crop`}
+                        src={service.image_url || getServiceImage(service.type)}
                         alt={service.name}
                         className="w-full h-32 object-cover"
-                        onError={(e) => {
-                          e.target.src = `https://via.placeholder.com/400x300?text=${encodeURIComponent(service.type)}`;
-                        }}
                       />
                       <div className="p-4">
                         <div className="flex items-start justify-between">
@@ -172,12 +182,9 @@ export default function Services({ user }) {
                   </SheetHeader>
                   <div className="mt-6 space-y-6">
                     <img 
-                      src={service.image_url || `https://images.unsplash.com/photo-1552053831-71594a27c62d?w=600&h=400&fit=crop`}
+                      src={service.image_url || getServiceImage(service.type)}
                       alt={service.name}
                       className="w-full h-48 object-cover rounded-2xl"
-                      onError={(e) => {
-                        e.target.src = `https://via.placeholder.com/600x400?text=${encodeURIComponent(service.type)}`;
-                      }}
                     />
 
                     {/* Rating */}
