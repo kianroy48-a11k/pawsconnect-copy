@@ -34,20 +34,22 @@ export default function Sidebar({ currentPage, user }) {
         <Link 
           to={createPageUrl('Home')}
           className="flex items-center gap-3 px-4 py-6 xl:px-6"
-          aria-label="Pawbook Home"
+          aria-label="Paw Connect Home"
         >
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-sky-200 flex items-center justify-center flex-shrink-0 logo-circle text-blue-600">
            <svg className="w-6 h-6" viewBox="0 0 100 100" fill="currentColor">
-             <ellipse cx="50" cy="25" rx="12" ry="14" />
-             <ellipse cx="28" cy="35" rx="10" ry="13" />
-             <ellipse cx="72" cy="35" rx="10" ry="13" />
-             <ellipse cx="18" cy="55" rx="9" ry="12" />
-             <ellipse cx="82" cy="55" rx="9" ry="12" />
-             <path d="M 35 70 Q 50 85 65 70 Q 50 80 35 70 Z" fill="currentColor" />
+             <circle cx="30" cy="30" r="8" />
+             <circle cx="70" cy="30" r="8" />
+             <circle cx="30" cy="70" r="8" />
+             <circle cx="70" cy="70" r="8" />
+             <line x1="30" y1="30" x2="70" y2="30" stroke="currentColor" strokeWidth="4" />
+             <line x1="30" y1="30" x2="30" y2="70" stroke="currentColor" strokeWidth="4" />
+             <line x1="70" y1="30" x2="70" y2="70" stroke="currentColor" strokeWidth="4" />
+             <line x1="30" y1="70" x2="70" y2="70" stroke="currentColor" strokeWidth="4" />
            </svg>
           </div>
           <span className="hidden xl:block text-xl font-bold bg-gradient-to-r from-blue-500 to-sky-400 bg-clip-text text-transparent">
-            Pawbook
+            Paw Connect
           </span>
         </Link>
 
