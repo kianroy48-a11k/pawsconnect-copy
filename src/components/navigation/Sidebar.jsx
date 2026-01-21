@@ -33,21 +33,19 @@ export default function Sidebar({ currentPage, user }) {
         {/* Logo */}
         <Link 
           to={createPageUrl('Home')}
-          className="flex items-center gap-3 px-4 py-6 xl:px-6"
+          className="flex items-center gap-3 px-4 py-4 xl:px-6"
           aria-label="Paw Connect Home"
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-200 to-sky-200 flex items-center justify-center flex-shrink-0 logo-circle text-blue-600">
-           <svg className="w-6 h-6" viewBox="0 0 100 100" fill="currentColor">
-             <ellipse cx="50" cy="70" rx="18" ry="22" />
-             <circle cx="32" cy="40" r="9" />
-             <circle cx="50" cy="32" r="9" />
-             <circle cx="68" cy="40" r="9" />
-             <circle cx="82" cy="52" r="8" />
-           </svg>
-          </div>
-          <span className="hidden xl:block text-xl font-bold bg-gradient-to-r from-blue-500 to-sky-400 bg-clip-text text-transparent">
-            Paw Connect
-          </span>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6967dc2d5952a93bc263a0f3/a02aa2884_Screenshot2026-01-21at230905.png" 
+            alt="Paw Connect Logo"
+            className="hidden xl:block h-12 object-contain"
+          />
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6967dc2d5952a93bc263a0f3/a02aa2884_Screenshot2026-01-21at230905.png" 
+            alt="Paw Connect Logo"
+            className="xl:hidden w-10 h-10 object-contain"
+          />
         </Link>
 
         {/* Post Button */}
