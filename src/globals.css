@@ -21,7 +21,7 @@ css
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 214.3 31.8% 91.4%;
+    --border: 210 80% 55% / 0.1;
     --input: 214.3 31.8% 91.4%;
     --ring: 210 80% 55%;
     --radius: 0.75rem;
@@ -61,10 +61,22 @@ css
 @layer base {
   * {
     @apply border-border;
+    transition: all 0.3s ease-in-out;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Quicksand', 'Varela Round', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.02em;
+  }
+  button:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  img {
+    object-fit: cover;
   }
 }
 
@@ -157,6 +169,21 @@ img {
 /* Card hover effect */
 .card-hover {
   @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+}
+
+/* Soft borders and corners */
+.card, .input, .button {
+  border-radius: 12px;
+  border: 1px solid rgba(210, 80%, 55%, 0.1);
+}
+
+/* Input focus state */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border: 2px solid hsl(var(--primary));
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
 /* Button active state */

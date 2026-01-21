@@ -220,7 +220,7 @@ export default function Messages({ user }) {
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search messages"
+                  placeholder="Search your chats... 💬"
                   className="pl-10 rounded-full bg-gray-50 border-0"
                   aria-label="Search messages"
                 />
@@ -410,7 +410,7 @@ export default function Messages({ user }) {
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Type a message..."
+                    placeholder="Type a pawsitive message... 🐾"
                     disabled={isSending}
                     className="flex-1 rounded-full bg-gray-50 border-0 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Type a message"

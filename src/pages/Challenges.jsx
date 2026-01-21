@@ -38,11 +38,21 @@ export default function Challenges({ user }) {
     queryFn: () => base44.entities.Challenge.list('-created_date', 20)
   });
 
-  const { data: challengePosts = [], isLoading: loadingPosts } = useQuery({
+  const { data: allPosts = [], isLoading: loadingPosts } = useQuery({
     queryKey: ['challenge-posts', selectedChallenge?.id],
-    queryFn: () => base44.entities.Post.filter({ challenge_id: selectedChallenge?.id }, '-likes_count', 50),
+    queryFn: async () => {
+      const posts = await base44.entities.Post.list('-likes_count', 200);
+      const challengeHashtag = `#${selectedChallenge?.hashtag.toLowerCase()}`;
+      const filteredPosts = posts.filter(post => 
+        post.tags && post.tags.some(tag => tag.toLowerCase() === challengeHashtag || tag.toLowerCase() === selectedChallenge?.hashtag.toLowerCase())
+      );
+      console.log('Filtered Posts:', filteredPosts);
+      return filteredPosts;
+    },
     enabled: !!selectedChallenge?.id
   });
+
+  const challengePosts = allPosts;
 
   const activeChallenges = challenges.filter(c => c.is_active);
   const pastChallenges = challenges.filter(c => !c.is_active);
@@ -113,7 +123,7 @@ export default function Challenges({ user }) {
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-800">Challenges</h1>
-              <p className="text-sm text-gray-500">Join fun challenges with your pets!</p>
+              <p className="text-sm text-gray-500">Join pawsome challenges with your furry friends! 🏆</p>
             </div>
           </div>
         </div>

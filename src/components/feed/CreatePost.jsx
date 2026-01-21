@@ -87,7 +87,9 @@ Original post: "${content}"`,
         imageUrl = file_url;
       }
 
-      const tags = content.match(/#\w+/g)?.map(tag => tag.slice(1)) || [];
+      // Extract hashtags with comprehensive regex
+      const tags = content.match(/#[a-z0-9_]+/gi)?.map(tag => tag.toLowerCase()) || [];
+      console.log('Parsed Tags:', tags);
 
       await base44.entities.Post.create({
         content: content.trim(),
@@ -133,7 +135,7 @@ Original post: "${content}"`,
           <Textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder=""
+            placeholder="Share something pawsome with the community... 🐾"
             className="border-0 resize-none text-[15px] placeholder:text-muted-foreground focus-visible:ring-0 p-0 min-h-[60px] bg-transparent"
           />
 
