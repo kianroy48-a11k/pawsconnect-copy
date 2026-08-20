@@ -1,0 +1,66 @@
+{
+  "name": "Pet",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "species": {
+      "type": "string",
+      "enum": [
+        "dog",
+        "cat",
+        "bird",
+        "fish",
+        "rabbit",
+        "hamster",
+        "reptile",
+        "other"
+      ]
+    },
+    "breed": {
+      "type": "string"
+    },
+    "age_years": {
+      "type": "number"
+    },
+    "age_months": {
+      "type": "number"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string"
+    },
+    "personality_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_available_for_adoption": {
+      "type": "boolean",
+      "default": false
+    },
+    "streak_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_challenge_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "name",
+    "species",
+    "owner_email"
+  ]
+}

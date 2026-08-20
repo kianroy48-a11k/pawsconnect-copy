@@ -1,0 +1,71 @@
+{
+  "name": "Post",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "Post text content"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Optional image URL"
+    },
+    "post_type": {
+      "type": "string",
+      "enum": [
+        "general",
+        "adoption",
+        "lost",
+        "found",
+        "challenge",
+        "service_review",
+        "question"
+      ],
+      "default": "general"
+    },
+    "pet_id": {
+      "type": "string",
+      "description": "Associated pet profile ID"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_avatar": {
+      "type": "string"
+    },
+    "likes_count": {
+      "type": "number",
+      "default": 0
+    },
+    "comments_count": {
+      "type": "number",
+      "default": 0
+    },
+    "challenge_id": {
+      "type": "string",
+      "description": "If part of a challenge"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location for lost/found posts"
+    },
+    "contact_info": {
+      "type": "string",
+      "description": "Contact for adoption/lost posts"
+    },
+    "is_urgent": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "content",
+    "author_name"
+  ]
+}

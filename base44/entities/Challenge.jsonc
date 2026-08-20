@@ -1,0 +1,50 @@
+{
+  "name": "Challenge",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "hashtag": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "participants_count": {
+      "type": "number",
+      "default": 0
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "photo",
+        "trick",
+        "adventure",
+        "wellness",
+        "fashion",
+        "friendship"
+      ]
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "hashtag"
+  ]
+}
